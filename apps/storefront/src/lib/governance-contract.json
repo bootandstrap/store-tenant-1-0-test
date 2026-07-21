@@ -1,0 +1,2696 @@
+{
+  "$schema": "governance-contract/v3",
+  "generated_at": "2026-06-29T11:50:44.065Z",
+  "generated_by": "BOOTANDSTRAP_WEB/scripts/generate-contract.ts",
+  "db_enriched": true,
+  "flags": {
+    "count": 83,
+    "keys": [
+      "enable_2fa",
+      "enable_abandoned_cart_emails",
+      "enable_address_management",
+      "enable_admin_api",
+      "enable_analytics",
+      "enable_apple_oauth",
+      "enable_auth_advanced",
+      "enable_automations",
+      "enable_backups",
+      "enable_bank_transfer",
+      "enable_carousel",
+      "enable_cash_on_delivery",
+      "enable_chatbot",
+      "enable_cms_pages",
+      "enable_cookie_consent",
+      "enable_crm",
+      "enable_crm_contacts",
+      "enable_crm_export",
+      "enable_crm_interactions",
+      "enable_crm_segmentation",
+      "enable_crm_segments",
+      "enable_custom_email_domain",
+      "enable_custom_webhooks",
+      "enable_customer_accounts",
+      "enable_ecommerce",
+      "enable_email_auth",
+      "enable_email_campaigns",
+      "enable_email_notifications",
+      "enable_email_segmentation",
+      "enable_email_templates",
+      "enable_facebook_oauth",
+      "enable_google_oauth",
+      "enable_guest_checkout",
+      "enable_kiosk_analytics",
+      "enable_kiosk_idle_timer",
+      "enable_kiosk_remote_management",
+      "enable_magic_link",
+      "enable_maintenance_mode",
+      "enable_manual_backup",
+      "enable_multi_currency",
+      "enable_multi_language",
+      "enable_newsletter",
+      "enable_online_payments",
+      "enable_order_notes",
+      "enable_order_tracking",
+      "enable_owner_panel",
+      "enable_pos",
+      "enable_pos_customer_search",
+      "enable_pos_keyboard_shortcuts",
+      "enable_pos_kiosk",
+      "enable_pos_line_discounts",
+      "enable_pos_multi_device",
+      "enable_pos_offline_cart",
+      "enable_pos_quick_sale",
+      "enable_pos_reports",
+      "enable_pos_shifts",
+      "enable_pos_thermal_printer",
+      "enable_product_badges",
+      "enable_product_comparisons",
+      "enable_product_search",
+      "enable_promotions",
+      "enable_related_products",
+      "enable_reservation_checkout",
+      "enable_review_request_emails",
+      "enable_reviews",
+      "enable_sales_channels",
+      "enable_self_service_returns",
+      "enable_seo",
+      "enable_seo_tools",
+      "enable_social_links",
+      "enable_social_media",
+      "enable_social_sharing",
+      "enable_traffic_analytics",
+      "enable_traffic_autoscale",
+      "enable_traffic_expansion",
+      "enable_transactional_emails",
+      "enable_user_registration",
+      "enable_whatsapp_checkout",
+      "enable_whatsapp_contact",
+      "enable_wishlist",
+      "owner_advanced_modules_enabled",
+      "owner_lite_enabled",
+      "require_auth_to_order"
+    ],
+    "groups": {
+      "___checkout": {
+        "label": "🛒 Checkout",
+        "color": "#22c55e",
+        "flags": [
+          "enable_whatsapp_checkout",
+          "enable_whatsapp_contact",
+          "enable_online_payments",
+          "enable_cash_on_delivery",
+          "enable_bank_transfer",
+          "enable_guest_checkout",
+          "require_auth_to_order",
+          "enable_order_notes",
+          "enable_promotions",
+          "enable_reservation_checkout"
+        ]
+      },
+      "___auth___accounts": {
+        "label": "🔐 Auth & Accounts",
+        "color": "#3b82f6",
+        "flags": [
+          "enable_user_registration",
+          "enable_email_auth",
+          "enable_google_oauth",
+          "enable_customer_accounts",
+          "enable_address_management",
+          "enable_order_tracking",
+          "enable_auth_advanced",
+          "enable_apple_oauth",
+          "enable_facebook_oauth",
+          "enable_2fa",
+          "enable_magic_link"
+        ]
+      },
+      "___content___discovery": {
+        "label": "📦 Content & Discovery",
+        "color": "#f59e0b",
+        "flags": [
+          "enable_ecommerce",
+          "enable_carousel",
+          "enable_cms_pages",
+          "enable_product_search",
+          "enable_reviews",
+          "enable_wishlist",
+          "enable_related_products",
+          "enable_product_comparisons",
+          "enable_pos",
+          "enable_pos_kiosk",
+          "enable_kiosk_analytics",
+          "enable_kiosk_idle_timer",
+          "enable_kiosk_remote_management",
+          "enable_pos_keyboard_shortcuts",
+          "enable_pos_quick_sale",
+          "enable_pos_offline_cart",
+          "enable_pos_thermal_printer",
+          "enable_pos_line_discounts",
+          "enable_pos_customer_search",
+          "enable_pos_multi_device",
+          "enable_pos_shifts",
+          "enable_pos_reports",
+          "enable_product_badges"
+        ]
+      },
+      "___internationalization": {
+        "label": "🌐 Internationalization",
+        "color": "#06b6d4",
+        "flags": [
+          "enable_multi_language",
+          "enable_multi_currency"
+        ]
+      },
+      "___business___branding": {
+        "label": "🏪 Business & Branding",
+        "color": "#ec4899",
+        "flags": [
+          "enable_social_links",
+          "enable_owner_panel",
+          "enable_newsletter",
+          "enable_social_media",
+          "enable_sales_channels",
+          "enable_social_sharing"
+        ]
+      },
+      "___system": {
+        "label": "⚙️ System",
+        "color": "#8b5cf6",
+        "flags": [
+          "enable_analytics",
+          "enable_admin_api",
+          "enable_maintenance_mode",
+          "enable_cookie_consent",
+          "enable_chatbot",
+          "enable_self_service_returns",
+          "owner_lite_enabled",
+          "owner_advanced_modules_enabled",
+          "enable_seo",
+          "enable_automations",
+          "enable_seo_tools",
+          "enable_custom_webhooks"
+        ]
+      },
+      "___crm": {
+        "label": "📁 CRM",
+        "color": "#f59e0b",
+        "flags": [
+          "enable_crm",
+          "enable_crm_segmentation",
+          "enable_crm_export",
+          "enable_crm_contacts",
+          "enable_crm_interactions",
+          "enable_crm_segments"
+        ]
+      },
+      "___email_marketing": {
+        "label": "📧 Email Marketing",
+        "color": "#e11d48",
+        "flags": [
+          "enable_email_notifications",
+          "enable_abandoned_cart_emails",
+          "enable_email_campaigns",
+          "enable_email_templates",
+          "enable_transactional_emails",
+          "enable_review_request_emails",
+          "enable_email_segmentation",
+          "enable_custom_email_domain"
+        ]
+      },
+      "___traffic_capacity": {
+        "label": "📊 Traffic Capacity",
+        "color": "#6366f1",
+        "flags": [
+          "enable_traffic_expansion",
+          "enable_traffic_analytics",
+          "enable_traffic_autoscale"
+        ]
+      },
+      "____backup___storage": {
+        "label": "🛡️ Backup & Storage",
+        "color": "#14b8a6",
+        "flags": [
+          "enable_backups",
+          "enable_manual_backup"
+        ]
+      }
+    }
+  },
+  "limits": {
+    "count": 31,
+    "keys": [
+      "backup_frequency_hours",
+      "max_admin_users",
+      "max_automations",
+      "max_backups",
+      "max_badges",
+      "max_carousel_slides",
+      "max_categories",
+      "max_chatbot_messages_month",
+      "max_cms_pages",
+      "max_crm_contacts",
+      "max_currencies",
+      "max_custom_domains",
+      "max_customers",
+      "max_email_sends_month",
+      "max_file_upload_mb",
+      "max_images_per_product",
+      "max_languages",
+      "max_newsletter_subscribers",
+      "max_orders_month",
+      "max_payment_methods",
+      "max_pos_payment_methods",
+      "max_products",
+      "max_promotions_active",
+      "max_requests_day",
+      "max_reviews_per_product",
+      "max_whatsapp_templates",
+      "max_wishlist_items",
+      "plan_expires_at",
+      "plan_name",
+      "plan_tier",
+      "storage_limit_mb"
+    ],
+    "numeric_keys": [
+      "backup_frequency_hours",
+      "max_admin_users",
+      "max_automations",
+      "max_backups",
+      "max_badges",
+      "max_carousel_slides",
+      "max_categories",
+      "max_chatbot_messages_month",
+      "max_cms_pages",
+      "max_crm_contacts",
+      "max_currencies",
+      "max_custom_domains",
+      "max_customers",
+      "max_email_sends_month",
+      "max_file_upload_mb",
+      "max_images_per_product",
+      "max_languages",
+      "max_newsletter_subscribers",
+      "max_orders_month",
+      "max_payment_methods",
+      "max_pos_payment_methods",
+      "max_products",
+      "max_promotions_active",
+      "max_requests_day",
+      "max_reviews_per_product",
+      "max_whatsapp_templates",
+      "max_wishlist_items",
+      "storage_limit_mb"
+    ],
+    "metadata_keys": [
+      "plan_expires_at",
+      "plan_name",
+      "plan_tier"
+    ]
+  },
+  "modules": {
+    "count": 13,
+    "keys": [
+      "auth_advanced",
+      "automation",
+      "capacidad",
+      "chatbot",
+      "crm",
+      "ecommerce",
+      "email_marketing",
+      "i18n",
+      "pos",
+      "pos_kiosk",
+      "rrss",
+      "sales_channels",
+      "seo"
+    ],
+    "payment_types": {
+      "subscription": [
+        "auth_advanced",
+        "automation",
+        "capacidad",
+        "chatbot",
+        "crm",
+        "ecommerce",
+        "email_marketing",
+        "pos_kiosk",
+        "seo"
+      ],
+      "one_time": [
+        "i18n",
+        "rrss"
+      ],
+      "extension": [
+        "pos",
+        "sales_channels"
+      ]
+    },
+    "catalog": [
+      {
+        "key": "auth_advanced",
+        "name": "Auth Avanzado",
+        "icon": "🔐",
+        "description": "Google OAuth, Magic Links y autenticación avanzada",
+        "category": "engage",
+        "popular": false,
+        "requires": [],
+        "payment_type": "subscription",
+        "tiers": [
+          {
+            "key": "basic",
+            "name": "Básico",
+            "commercial_product_key": "module.auth_advanced.basic",
+            "prices": [
+              {
+                "currency": "CHF",
+                "interval": "month",
+                "amount_minor": 500,
+                "tax_behavior": "inclusive"
+              },
+              {
+                "currency": "EUR",
+                "interval": "month",
+                "amount_minor": 550,
+                "tax_behavior": "inclusive"
+              }
+            ],
+            "price_chf": 5,
+            "features": [
+              "Google OAuth"
+            ],
+            "recommended": false,
+            "flag_effects": {
+              "enable_google_oauth": true
+            }
+          },
+          {
+            "key": "pro",
+            "name": "Pro",
+            "commercial_product_key": "module.auth_advanced.pro",
+            "prices": [
+              {
+                "currency": "CHF",
+                "interval": "month",
+                "amount_minor": 1200,
+                "tax_behavior": "inclusive"
+              },
+              {
+                "currency": "EUR",
+                "interval": "month",
+                "amount_minor": 1320,
+                "tax_behavior": "inclusive"
+              }
+            ],
+            "price_chf": 12,
+            "features": [
+              "Google + Apple + Facebook"
+            ],
+            "recommended": false,
+            "flag_effects": {
+              "enable_apple_oauth": true,
+              "enable_google_oauth": true,
+              "enable_facebook_oauth": true
+            }
+          },
+          {
+            "key": "enterprise",
+            "name": "Enterprise",
+            "commercial_product_key": "module.auth_advanced.enterprise",
+            "prices": [
+              {
+                "currency": "CHF",
+                "interval": "month",
+                "amount_minor": 2500,
+                "tax_behavior": "inclusive"
+              },
+              {
+                "currency": "EUR",
+                "interval": "month",
+                "amount_minor": 2750,
+                "tax_behavior": "inclusive"
+              }
+            ],
+            "price_chf": 25,
+            "features": [
+              "2FA",
+              "Magic Link"
+            ],
+            "recommended": false,
+            "flag_effects": {
+              "enable_2fa": true,
+              "enable_magic_link": true,
+              "enable_apple_oauth": true,
+              "enable_google_oauth": true,
+              "enable_facebook_oauth": true
+            }
+          }
+        ]
+      },
+      {
+        "key": "automation",
+        "name": "Automatización",
+        "icon": "⚡",
+        "description": "Flujos automáticos, webhooks y conexiones externas",
+        "category": "automate",
+        "popular": false,
+        "requires": [],
+        "payment_type": "subscription",
+        "tiers": [
+          {
+            "key": "basic",
+            "name": "Básico",
+            "commercial_product_key": "module.automation.basic",
+            "prices": [
+              {
+                "currency": "CHF",
+                "interval": "month",
+                "amount_minor": 2000,
+                "tax_behavior": "inclusive"
+              },
+              {
+                "currency": "EUR",
+                "interval": "month",
+                "amount_minor": 2200,
+                "tax_behavior": "inclusive"
+              }
+            ],
+            "price_chf": 20,
+            "features": [
+              "5 automatizaciones"
+            ],
+            "recommended": false
+          },
+          {
+            "key": "pro",
+            "name": "Pro",
+            "commercial_product_key": "module.automation.pro",
+            "prices": [
+              {
+                "currency": "CHF",
+                "interval": "month",
+                "amount_minor": 4000,
+                "tax_behavior": "inclusive"
+              },
+              {
+                "currency": "EUR",
+                "interval": "month",
+                "amount_minor": 4400,
+                "tax_behavior": "inclusive"
+              }
+            ],
+            "price_chf": 40,
+            "features": [
+              "Ilimitadas",
+              "Webhooks custom"
+            ],
+            "recommended": false,
+            "flag_effects": {
+              "enable_admin_api": true,
+              "enable_automations": true,
+              "enable_custom_webhooks": true
+            },
+            "limit_effects": {
+              "max_automations": 99999
+            }
+          }
+        ]
+      },
+      {
+        "key": "capacidad",
+        "name": "Capacidad Extra",
+        "icon": "📦",
+        "description": "Más almacenamiento, dominios y capacidad de procesamiento",
+        "category": "automate",
+        "popular": false,
+        "requires": [],
+        "payment_type": "subscription",
+        "tiers": [
+          {
+            "key": "basic",
+            "name": "Basic",
+            "commercial_product_key": "module.capacidad.basic",
+            "prices": [
+              {
+                "currency": "CHF",
+                "interval": "month",
+                "amount_minor": 1000,
+                "tax_behavior": "inclusive"
+              }
+            ],
+            "price_chf": 10,
+            "features": [
+              "10.000 peticiones/día",
+              "Monitorización básica de uso",
+              "Alertas de límite por email"
+            ],
+            "recommended": false,
+            "flag_effects": {
+              "enable_traffic_expansion": true
+            },
+            "limit_effects": {
+              "max_requests_day": 25000,
+              "storage_limit_mb": 500
+            }
+          },
+          {
+            "key": "pro",
+            "name": "Pro",
+            "commercial_product_key": "module.capacidad.pro",
+            "prices": [
+              {
+                "currency": "CHF",
+                "interval": "month",
+                "amount_minor": 2500,
+                "tax_behavior": "inclusive"
+              }
+            ],
+            "price_chf": 25,
+            "features": [
+              "50.000 peticiones/día",
+              "Dashboard de tráfico en tiempo real",
+              "Analítica de consumo diario/mensual",
+              "Alertas avanzadas"
+            ],
+            "recommended": true,
+            "flag_effects": {
+              "enable_traffic_analytics": true,
+              "enable_traffic_expansion": true
+            },
+            "limit_effects": {
+              "max_requests_day": 100000,
+              "storage_limit_mb": 2000
+            }
+          },
+          {
+            "key": "enterprise",
+            "name": "Enterprise",
+            "commercial_product_key": "module.capacidad.enterprise",
+            "prices": [
+              {
+                "currency": "CHF",
+                "interval": "month",
+                "amount_minor": 5000,
+                "tax_behavior": "inclusive"
+              }
+            ],
+            "price_chf": 50,
+            "features": [
+              "Peticiones ilimitadas",
+              "Autoscaling automático",
+              "Dashboard de tráfico avanzado",
+              "SLA de disponibilidad",
+              "Todo de Pro incluido"
+            ],
+            "recommended": false,
+            "flag_effects": {
+              "enable_traffic_analytics": true,
+              "enable_traffic_autoscale": true,
+              "enable_traffic_expansion": true
+            },
+            "limit_effects": {
+              "max_requests_day": 99999,
+              "storage_limit_mb": 10000
+            }
+          }
+        ]
+      },
+      {
+        "key": "chatbot",
+        "name": "Chatbot IA",
+        "icon": "🤖",
+        "description": "Asistente virtual con IA para atención al cliente 24/7",
+        "category": "engage",
+        "popular": true,
+        "requires": [],
+        "payment_type": "subscription",
+        "tiers": [
+          {
+            "key": "basic",
+            "name": "Básico",
+            "commercial_product_key": "module.chatbot.basic",
+            "prices": [
+              {
+                "currency": "CHF",
+                "interval": "month",
+                "amount_minor": 2000,
+                "tax_behavior": "inclusive"
+              },
+              {
+                "currency": "EUR",
+                "interval": "month",
+                "amount_minor": 2200,
+                "tax_behavior": "inclusive"
+              }
+            ],
+            "price_chf": 20,
+            "features": [
+              "Widget chatbot en tu web",
+              "500 mensajes/mes",
+              "RAG sobre tus documentos"
+            ],
+            "recommended": false,
+            "flag_effects": {
+              "enable_chatbot": true
+            },
+            "limit_effects": {
+              "max_chatbot_messages_month": 500
+            }
+          },
+          {
+            "key": "pro",
+            "name": "Pro",
+            "commercial_product_key": "module.chatbot.pro",
+            "prices": [
+              {
+                "currency": "CHF",
+                "interval": "month",
+                "amount_minor": 4000,
+                "tax_behavior": "inclusive"
+              },
+              {
+                "currency": "EUR",
+                "interval": "month",
+                "amount_minor": 4400,
+                "tax_behavior": "inclusive"
+              }
+            ],
+            "price_chf": 40,
+            "features": [
+              "5000 mensajes/mes",
+              "RAG avanzado",
+              "Integración Calendly/Google"
+            ],
+            "recommended": true,
+            "flag_effects": {
+              "enable_chatbot": true
+            },
+            "limit_effects": {
+              "max_chatbot_messages_month": 5000
+            }
+          }
+        ]
+      },
+      {
+        "key": "crm",
+        "name": "CRM",
+        "icon": "👥",
+        "description": "Gestión de clientes y relaciones comerciales",
+        "category": "engage",
+        "popular": false,
+        "requires": [],
+        "payment_type": "subscription",
+        "tiers": [
+          {
+            "key": "basic",
+            "name": "Básico",
+            "commercial_product_key": "module.crm.basic",
+            "prices": [
+              {
+                "currency": "CHF",
+                "interval": "month",
+                "amount_minor": 1500,
+                "tax_behavior": "inclusive"
+              },
+              {
+                "currency": "EUR",
+                "interval": "month",
+                "amount_minor": 1650,
+                "tax_behavior": "inclusive"
+              }
+            ],
+            "price_chf": 15,
+            "features": [
+              "Lista de contactos + notas",
+              "Historial de interacciones",
+              "Max 200 contactos"
+            ],
+            "recommended": false,
+            "flag_effects": {
+              "enable_crm": true,
+              "enable_crm_contacts": true,
+              "enable_crm_interactions": true
+            },
+            "limit_effects": {
+              "max_crm_contacts": 200
+            }
+          },
+          {
+            "key": "pro",
+            "name": "Pro",
+            "commercial_product_key": "module.crm.pro",
+            "prices": [
+              {
+                "currency": "CHF",
+                "interval": "month",
+                "amount_minor": 3000,
+                "tax_behavior": "inclusive"
+              },
+              {
+                "currency": "EUR",
+                "interval": "month",
+                "amount_minor": 3300,
+                "tax_behavior": "inclusive"
+              }
+            ],
+            "price_chf": 30,
+            "features": [
+              "Max 5000 contactos",
+              "Segmentación / etiquetas",
+              "Exportar CSV"
+            ],
+            "recommended": false,
+            "flag_effects": {
+              "enable_crm": true,
+              "enable_crm_export": true,
+              "enable_crm_contacts": true,
+              "enable_crm_segments": true,
+              "enable_crm_interactions": true,
+              "enable_crm_segmentation": true
+            },
+            "limit_effects": {
+              "max_crm_contacts": 5000
+            }
+          }
+        ]
+      },
+      {
+        "key": "ecommerce",
+        "name": "E-Commerce Pro",
+        "icon": "🛍️",
+        "description": "Tienda online completa con carrito, pagos y gestión de pedidos",
+        "category": "sell",
+        "popular": true,
+        "requires": [],
+        "payment_type": "subscription",
+        "tiers": [
+          {
+            "key": "basic",
+            "name": "Básico",
+            "commercial_product_key": "module.ecommerce.basic",
+            "prices": [
+              {
+                "currency": "CHF",
+                "interval": "month",
+                "amount_minor": 2500,
+                "tax_behavior": "inclusive"
+              },
+              {
+                "currency": "EUR",
+                "interval": "month",
+                "amount_minor": 2750,
+                "tax_behavior": "inclusive"
+              }
+            ],
+            "price_chf": 25,
+            "features": [
+              "50 productos / 5 categorías",
+              "100 pedidos/mes / 100 clientes",
+              "Carrito + Checkout + Cuentas",
+              "Seguimiento y direcciones",
+              "Búsqueda de productos"
+            ],
+            "recommended": false,
+            "flag_effects": {
+              "enable_carousel": true,
+              "enable_ecommerce": true,
+              "enable_email_auth": true,
+              "enable_order_notes": true,
+              "enable_owner_panel": true,
+              "owner_lite_enabled": true,
+              "enable_order_tracking": true,
+              "enable_product_badges": true,
+              "enable_product_search": true,
+              "enable_related_products": true,
+              "enable_customer_accounts": true,
+              "enable_user_registration": true,
+              "enable_address_management": true
+            },
+            "limit_effects": {
+              "max_products": 50,
+              "max_customers": 100,
+              "max_categories": 5,
+              "max_orders_month": 100,
+              "max_carousel_slides": 5,
+              "max_images_per_product": 5
+            }
+          },
+          {
+            "key": "pro",
+            "name": "Pro",
+            "commercial_product_key": "module.ecommerce.pro",
+            "prices": [
+              {
+                "currency": "CHF",
+                "interval": "month",
+                "amount_minor": 4500,
+                "tax_behavior": "inclusive"
+              },
+              {
+                "currency": "EUR",
+                "interval": "month",
+                "amount_minor": 4950,
+                "tax_behavior": "inclusive"
+              }
+            ],
+            "price_chf": 45,
+            "features": [
+              "200 productos / 20 categorías",
+              "500 pedidos/mes / 500 clientes",
+              "Insignias + Productos relacionados",
+              "Promociones (max 5 activas)",
+              "Reseñas + Wishlist + CMS + Carousel"
+            ],
+            "recommended": true,
+            "flag_effects": {
+              "enable_reviews": true,
+              "enable_carousel": true,
+              "enable_wishlist": true,
+              "enable_cms_pages": true,
+              "enable_ecommerce": true,
+              "enable_email_auth": true,
+              "enable_promotions": true,
+              "enable_order_notes": true,
+              "enable_owner_panel": true,
+              "owner_lite_enabled": true,
+              "enable_order_tracking": true,
+              "enable_product_badges": true,
+              "enable_product_search": true,
+              "enable_related_products": true,
+              "enable_customer_accounts": true,
+              "enable_user_registration": true,
+              "enable_address_management": true
+            },
+            "limit_effects": {
+              "max_badges": 10,
+              "max_products": 200,
+              "max_cms_pages": 10,
+              "max_customers": 500,
+              "max_categories": 20,
+              "max_orders_month": 500,
+              "max_wishlist_items": 20,
+              "max_carousel_slides": 10,
+              "max_promotions_active": 5,
+              "max_images_per_product": 10,
+              "max_reviews_per_product": 10
+            }
+          },
+          {
+            "key": "enterprise",
+            "name": "Enterprise",
+            "commercial_product_key": "module.ecommerce.enterprise",
+            "prices": [
+              {
+                "currency": "CHF",
+                "interval": "month",
+                "amount_minor": 7500,
+                "tax_behavior": "inclusive"
+              },
+              {
+                "currency": "EUR",
+                "interval": "month",
+                "amount_minor": 8250,
+                "tax_behavior": "inclusive"
+              }
+            ],
+            "price_chf": 75,
+            "features": [
+              "Productos y categorías ilimitados",
+              "5000 pedidos/mes / Clientes ∞",
+              "Devoluciones self-service",
+              "API externa",
+              "Todo de Pro incluido"
+            ],
+            "recommended": false,
+            "flag_effects": {
+              "enable_reviews": true,
+              "enable_carousel": true,
+              "enable_wishlist": true,
+              "enable_admin_api": true,
+              "enable_cms_pages": true,
+              "enable_ecommerce": true,
+              "enable_email_auth": true,
+              "enable_promotions": true,
+              "enable_order_notes": true,
+              "enable_owner_panel": true,
+              "owner_lite_enabled": true,
+              "enable_order_tracking": true,
+              "enable_product_badges": true,
+              "enable_product_search": true,
+              "enable_related_products": true,
+              "enable_customer_accounts": true,
+              "enable_user_registration": true,
+              "enable_address_management": true,
+              "enable_product_comparisons": true,
+              "enable_self_service_returns": true
+            },
+            "limit_effects": {
+              "max_badges": 99999,
+              "max_products": 99999,
+              "max_cms_pages": 50,
+              "max_customers": 99999,
+              "max_categories": 99999,
+              "max_orders_month": 5000,
+              "max_wishlist_items": 99999,
+              "max_carousel_slides": 20,
+              "max_promotions_active": 50,
+              "max_images_per_product": 20,
+              "max_reviews_per_product": 99999
+            }
+          }
+        ]
+      },
+      {
+        "key": "email_marketing",
+        "name": "Email Marketing",
+        "icon": "📧",
+        "description": "Emails transaccionales, newsletters y campañas automatizadas",
+        "category": "automate",
+        "popular": true,
+        "requires": [],
+        "payment_type": "subscription",
+        "tiers": [
+          {
+            "key": "basic",
+            "name": "Básico",
+            "commercial_product_key": "module.email_marketing.basic",
+            "prices": [
+              {
+                "currency": "CHF",
+                "interval": "month",
+                "amount_minor": 1500,
+                "tax_behavior": "inclusive"
+              },
+              {
+                "currency": "EUR",
+                "interval": "month",
+                "amount_minor": 1650,
+                "tax_behavior": "inclusive"
+              }
+            ],
+            "price_chf": 15,
+            "features": [
+              "Emails transaccionales (pedido, envío, bienvenida)",
+              "500 emails/mes",
+              "Templates predefinidos"
+            ],
+            "recommended": false,
+            "flag_effects": {
+              "enable_email_notifications": true,
+              "enable_transactional_emails": true
+            },
+            "limit_effects": {
+              "max_email_sends_month": 500
+            }
+          },
+          {
+            "key": "pro",
+            "name": "Pro",
+            "commercial_product_key": "module.email_marketing.pro",
+            "prices": [
+              {
+                "currency": "CHF",
+                "interval": "month",
+                "amount_minor": 3000,
+                "tax_behavior": "inclusive"
+              },
+              {
+                "currency": "EUR",
+                "interval": "month",
+                "amount_minor": 3300,
+                "tax_behavior": "inclusive"
+              }
+            ],
+            "price_chf": 30,
+            "features": [
+              "2000 emails/mes",
+              "Abandono de carrito automático",
+              "Review requests post-compra",
+              "Delay configurable (1h/3h/24h)"
+            ],
+            "recommended": true,
+            "flag_effects": {
+              "enable_email_templates": true,
+              "enable_email_notifications": true,
+              "enable_transactional_emails": true,
+              "enable_abandoned_cart_emails": true,
+              "enable_review_request_emails": true
+            },
+            "limit_effects": {
+              "max_email_sends_month": 2000
+            }
+          },
+          {
+            "key": "enterprise",
+            "name": "Enterprise",
+            "commercial_product_key": "module.email_marketing.enterprise",
+            "prices": [
+              {
+                "currency": "CHF",
+                "interval": "month",
+                "amount_minor": 5000,
+                "tax_behavior": "inclusive"
+              },
+              {
+                "currency": "EUR",
+                "interval": "month",
+                "amount_minor": 5500,
+                "tax_behavior": "inclusive"
+              }
+            ],
+            "price_chf": 50,
+            "features": [
+              "10.000 emails/mes",
+              "Campañas manuales",
+              "Segmentación de clientes",
+              "Templates custom (editor no-code)",
+              "Métricas: opens, clicks, bounces"
+            ],
+            "recommended": false,
+            "flag_effects": {
+              "enable_newsletter": true,
+              "enable_email_campaigns": true,
+              "enable_email_templates": true,
+              "enable_email_segmentation": true,
+              "enable_email_notifications": true,
+              "enable_transactional_emails": true,
+              "enable_abandoned_cart_emails": true,
+              "enable_review_request_emails": true
+            },
+            "limit_effects": {
+              "max_email_sends_month": 10000,
+              "max_newsletter_subscribers": 5000
+            }
+          }
+        ]
+      },
+      {
+        "key": "i18n",
+        "name": "Multiidioma",
+        "icon": "🌍",
+        "description": "Tu tienda en múltiples idiomas y monedas",
+        "category": "grow",
+        "popular": false,
+        "requires": [],
+        "payment_type": "one_time",
+        "tiers": [
+          {
+            "key": "basic",
+            "name": "2 Idiomas",
+            "commercial_product_key": "module.i18n.basic",
+            "prices": [
+              {
+                "currency": "CHF",
+                "interval": null,
+                "amount_minor": 1500,
+                "tax_behavior": "inclusive"
+              },
+              {
+                "currency": "EUR",
+                "interval": null,
+                "amount_minor": 1650,
+                "tax_behavior": "inclusive"
+              }
+            ],
+            "price_chf": 15,
+            "features": [
+              "2 idiomas + 1 moneda",
+              "URLs localizadas"
+            ],
+            "recommended": false,
+            "flag_effects": {
+              "enable_multi_language": true
+            },
+            "limit_effects": {
+              "max_languages": 2,
+              "max_currencies": 1
+            }
+          },
+          {
+            "key": "pro",
+            "name": "5 Idiomas + Monedas",
+            "commercial_product_key": "module.i18n.pro",
+            "prices": [
+              {
+                "currency": "CHF",
+                "interval": null,
+                "amount_minor": 3500,
+                "tax_behavior": "inclusive"
+              },
+              {
+                "currency": "EUR",
+                "interval": null,
+                "amount_minor": 3850,
+                "tax_behavior": "inclusive"
+              }
+            ],
+            "price_chf": 35,
+            "features": [
+              "5 idiomas + 5 monedas",
+              "Conversión automática"
+            ],
+            "recommended": false,
+            "flag_effects": {
+              "enable_multi_currency": true,
+              "enable_multi_language": true
+            },
+            "limit_effects": {
+              "max_languages": 5,
+              "max_currencies": 5
+            }
+          }
+        ]
+      },
+      {
+        "key": "pos",
+        "name": "Punto de Venta",
+        "icon": "💳",
+        "description": "Terminal POS para ventas presenciales",
+        "category": "sell",
+        "popular": false,
+        "requires": [
+          "ecommerce"
+        ],
+        "payment_type": "extension",
+        "tiers": [
+          {
+            "key": "basic",
+            "name": "Basic",
+            "commercial_product_key": "module.pos.basic",
+            "prices": [
+              {
+                "currency": "CHF",
+                "interval": "month",
+                "amount_minor": 500,
+                "tax_behavior": "inclusive"
+              },
+              {
+                "currency": "EUR",
+                "interval": "month",
+                "amount_minor": 540,
+                "tax_behavior": "inclusive"
+              }
+            ],
+            "price_chf": 5,
+            "features": [
+              "Terminal POS web",
+              "Escáner código de barras",
+              "Búsqueda de productos",
+              "Recibo (browser print)",
+              "1 método de pago"
+            ],
+            "recommended": false,
+            "flag_effects": {
+              "enable_pos": true
+            },
+            "limit_effects": {
+              "max_pos_payment_methods": 2
+            }
+          },
+          {
+            "key": "pro",
+            "name": "Pro",
+            "commercial_product_key": "module.pos.pro",
+            "prices": [
+              {
+                "currency": "CHF",
+                "interval": "month",
+                "amount_minor": 3500,
+                "tax_behavior": "inclusive"
+              }
+            ],
+            "price_chf": 35,
+            "features": [
+              "3 métodos de pago",
+              "Modo Kiosco (pantalla completa)",
+              "Atajos de teclado (F2/F4/F11)",
+              "Quick Sale sin producto",
+              "Sonidos + háptica",
+              "Carrito offline (localStorage)"
+            ],
+            "recommended": true,
+            "flag_effects": {
+              "enable_pos": true,
+              "enable_pos_kiosk": true,
+              "enable_pos_quick_sale": true,
+              "enable_pos_line_discounts": true,
+              "enable_pos_customer_search": true,
+              "enable_pos_keyboard_shortcuts": true
+            },
+            "limit_effects": {
+              "max_pos_payment_methods": 5
+            }
+          },
+          {
+            "key": "enterprise",
+            "name": "Enterprise",
+            "commercial_product_key": "module.pos.enterprise",
+            "prices": [
+              {
+                "currency": "CHF",
+                "interval": "month",
+                "amount_minor": 5500,
+                "tax_behavior": "inclusive"
+              }
+            ],
+            "price_chf": 55,
+            "features": [
+              "Métodos de pago ∞",
+              "Impresora térmica ESC/POS",
+              "Descuentos por línea",
+              "Búsqueda de clientes",
+              "Todo de Pro incluido"
+            ],
+            "recommended": false,
+            "flag_effects": {
+              "enable_pos": true,
+              "enable_pos_kiosk": true,
+              "enable_pos_shifts": true,
+              "enable_pos_quick_sale": true,
+              "enable_pos_multi_device": true,
+              "enable_pos_offline_cart": true,
+              "enable_pos_line_discounts": true,
+              "enable_pos_customer_search": true,
+              "enable_pos_thermal_printer": true,
+              "enable_pos_keyboard_shortcuts": true
+            },
+            "limit_effects": {
+              "max_pos_payment_methods": 99
+            }
+          }
+        ]
+      },
+      {
+        "key": "pos_kiosk",
+        "name": "Modo Kiosco POS",
+        "icon": "🖥️",
+        "description": "Terminal de autoservicio interactivo para clientes",
+        "category": "sell",
+        "popular": false,
+        "requires": [
+          "pos"
+        ],
+        "payment_type": "subscription",
+        "tiers": [
+          {
+            "key": "basic",
+            "name": "Básico",
+            "commercial_product_key": "module.pos_kiosk.basic",
+            "prices": [
+              {
+                "currency": "CHF",
+                "interval": "month",
+                "amount_minor": 500,
+                "tax_behavior": "inclusive"
+              },
+              {
+                "currency": "EUR",
+                "interval": "month",
+                "amount_minor": 540,
+                "tax_behavior": "inclusive"
+              }
+            ],
+            "price_chf": 5,
+            "features": [
+              "Kiosko estándar para autoservicio",
+              "Pagos integrados"
+            ],
+            "recommended": false,
+            "flag_effects": {
+              "enable_pos_kiosk": true
+            }
+          },
+          {
+            "key": "pro",
+            "name": "Avanzado",
+            "commercial_product_key": "module.pos_kiosk.pro",
+            "prices": [
+              {
+                "currency": "CHF",
+                "interval": "month",
+                "amount_minor": 2900,
+                "tax_behavior": "inclusive"
+              }
+            ],
+            "price_chf": 29,
+            "features": [
+              "Todo lo básico",
+              "Temporizador de inactividad para flujo rápido"
+            ],
+            "recommended": false,
+            "flag_effects": {
+              "enable_pos_kiosk": true,
+              "enable_kiosk_idle_timer": true
+            }
+          },
+          {
+            "key": "enterprise",
+            "name": "Premium",
+            "commercial_product_key": "module.pos_kiosk.enterprise",
+            "prices": [
+              {
+                "currency": "CHF",
+                "interval": "month",
+                "amount_minor": 5900,
+                "tax_behavior": "inclusive"
+              }
+            ],
+            "price_chf": 59,
+            "features": [
+              "Todo lo avanzado",
+              "Gestión remota",
+              "Analíticas avanzadas"
+            ],
+            "recommended": false,
+            "flag_effects": {
+              "enable_pos_kiosk": true,
+              "enable_kiosk_analytics": true,
+              "enable_kiosk_idle_timer": true,
+              "enable_kiosk_remote_management": true
+            }
+          }
+        ]
+      },
+      {
+        "key": "rrss",
+        "name": "Redes Sociales",
+        "icon": "📱",
+        "description": "Integración con redes sociales y compartir productos",
+        "category": "grow",
+        "popular": false,
+        "requires": [],
+        "payment_type": "one_time",
+        "tiers": [
+          {
+            "key": "standard",
+            "name": "Standard",
+            "commercial_product_key": "module.rrss.standard",
+            "prices": [
+              {
+                "currency": "CHF",
+                "interval": null,
+                "amount_minor": 9500,
+                "tax_behavior": "inclusive"
+              },
+              {
+                "currency": "EUR",
+                "interval": null,
+                "amount_minor": 10450,
+                "tax_behavior": "inclusive"
+              }
+            ],
+            "price_chf": 95,
+            "features": [
+              "Instagram + FB + Google Maps",
+              "Links en footer + header"
+            ],
+            "recommended": false
+          },
+          {
+            "key": "google_maps",
+            "name": "Google Maps",
+            "commercial_product_key": "module.rrss.google_maps",
+            "prices": [
+              {
+                "currency": "CHF",
+                "interval": null,
+                "amount_minor": 9000,
+                "tax_behavior": "inclusive"
+              }
+            ],
+            "price_chf": 90,
+            "features": [
+              "Gestión Google My Business",
+              "Optimización ficha",
+              "Reseñas y respuestas"
+            ],
+            "recommended": false,
+            "flag_effects": {
+              "enable_social_sharing": true
+            }
+          },
+          {
+            "key": "instagram",
+            "name": "Instagram",
+            "commercial_product_key": "module.rrss.instagram",
+            "prices": [
+              {
+                "currency": "CHF",
+                "interval": null,
+                "amount_minor": 8500,
+                "tax_behavior": "inclusive"
+              }
+            ],
+            "price_chf": 85,
+            "features": [
+              "Gestión de perfil",
+              "Publicaciones mensuales",
+              "Estrategia de contenido"
+            ],
+            "recommended": false,
+            "flag_effects": {
+              "enable_social_links": true,
+              "enable_social_media": true,
+              "enable_social_sharing": true
+            }
+          },
+          {
+            "key": "google_maps_instagram",
+            "name": "Google Maps + Instagram",
+            "commercial_product_key": "module.rrss.google_maps_instagram",
+            "prices": [
+              {
+                "currency": "CHF",
+                "interval": null,
+                "amount_minor": 15000,
+                "tax_behavior": "inclusive"
+              }
+            ],
+            "price_chf": 150,
+            "features": [
+              "Todo de Google Maps",
+              "Todo de Instagram",
+              "Estrategia integrada"
+            ],
+            "recommended": true,
+            "flag_effects": {
+              "enable_social_links": true,
+              "enable_social_media": true,
+              "enable_social_sharing": true
+            }
+          },
+          {
+            "key": "paquete_basico",
+            "name": "Paquete básico de recursos visuales",
+            "commercial_product_key": "module.rrss.paquete_basico",
+            "prices": [
+              {
+                "currency": "CHF",
+                "interval": null,
+                "amount_minor": 10500,
+                "tax_behavior": "inclusive"
+              }
+            ],
+            "price_chf": 105,
+            "features": [
+              "Sesión fotográfica básica",
+              "Diseño de contenido visual",
+              "Pack de plantillas"
+            ],
+            "recommended": false,
+            "flag_effects": {
+              "enable_social_sharing": true
+            }
+          },
+          {
+            "key": "paquete_avanzado",
+            "name": "Paquete avanzado de recursos visuales",
+            "commercial_product_key": "module.rrss.paquete_avanzado",
+            "prices": [
+              {
+                "currency": "CHF",
+                "interval": null,
+                "amount_minor": 14500,
+                "tax_behavior": "inclusive"
+              }
+            ],
+            "price_chf": 145,
+            "features": [
+              "Sesión fotográfica profesional",
+              "Vídeo corto para redes",
+              "Diseño de marca completo"
+            ],
+            "recommended": false,
+            "flag_effects": {
+              "enable_social_sharing": true
+            }
+          }
+        ]
+      },
+      {
+        "key": "sales_channels",
+        "name": "Multicanal",
+        "icon": "📡",
+        "description": "Vende en Instagram, Facebook y más plataformas",
+        "category": "sell",
+        "popular": false,
+        "requires": [
+          "ecommerce"
+        ],
+        "payment_type": "extension",
+        "tiers": [
+          {
+            "key": "basic",
+            "name": "Básico",
+            "commercial_product_key": "module.sales_channels.basic",
+            "prices": [
+              {
+                "currency": "CHF",
+                "interval": "month",
+                "amount_minor": 1500,
+                "tax_behavior": "inclusive"
+              },
+              {
+                "currency": "EUR",
+                "interval": "month",
+                "amount_minor": 1650,
+                "tax_behavior": "inclusive"
+              }
+            ],
+            "price_chf": 15,
+            "features": [
+              "WhatsApp Checkout + Contacto",
+              "5 templates WhatsApp",
+              "1 método de pago"
+            ],
+            "recommended": false,
+            "flag_effects": {
+              "enable_sales_channels": true,
+              "enable_whatsapp_contact": true,
+              "enable_whatsapp_checkout": true
+            },
+            "limit_effects": {
+              "max_payment_methods": 1,
+              "max_whatsapp_templates": 5
+            }
+          },
+          {
+            "key": "pro",
+            "name": "Pro",
+            "commercial_product_key": "module.sales_channels.pro",
+            "prices": [
+              {
+                "currency": "CHF",
+                "interval": "month",
+                "amount_minor": 3000,
+                "tax_behavior": "inclusive"
+              },
+              {
+                "currency": "EUR",
+                "interval": "month",
+                "amount_minor": 3300,
+                "tax_behavior": "inclusive"
+              }
+            ],
+            "price_chf": 30,
+            "features": [
+              "15 templates WhatsApp",
+              "Pago con tarjeta (Stripe)",
+              "Efectivo contra entrega",
+              "Newsletter (1000 suscriptores)",
+              "3 métodos de pago"
+            ],
+            "recommended": true,
+            "flag_effects": {
+              "enable_newsletter": true,
+              "enable_online_payments": true,
+              "enable_cash_on_delivery": true,
+              "enable_sales_channels": true,
+              "enable_whatsapp_contact": true,
+              "enable_whatsapp_checkout": true
+            },
+            "limit_effects": {
+              "max_payment_methods": 3,
+              "max_whatsapp_templates": 15,
+              "max_newsletter_subscribers": 1000
+            }
+          },
+          {
+            "key": "enterprise",
+            "name": "Enterprise",
+            "commercial_product_key": "module.sales_channels.enterprise",
+            "prices": [
+              {
+                "currency": "CHF",
+                "interval": "month",
+                "amount_minor": 5000,
+                "tax_behavior": "inclusive"
+              },
+              {
+                "currency": "EUR",
+                "interval": "month",
+                "amount_minor": 5500,
+                "tax_behavior": "inclusive"
+              }
+            ],
+            "price_chf": 50,
+            "features": [
+              "Templates ilimitados",
+              "Transferencia bancaria",
+              "Reservas (usuario registrado)",
+              "Newsletter (5000 suscriptores)",
+              "Métodos de pago ∞"
+            ],
+            "recommended": false,
+            "flag_effects": {
+              "enable_newsletter": true,
+              "enable_bank_transfer": true,
+              "enable_online_payments": true,
+              "enable_cash_on_delivery": true,
+              "enable_sales_channels": true,
+              "enable_whatsapp_contact": true,
+              "enable_whatsapp_checkout": true,
+              "enable_reservation_checkout": true
+            },
+            "limit_effects": {
+              "max_payment_methods": 99999,
+              "max_whatsapp_templates": 99999,
+              "max_newsletter_subscribers": 5000
+            }
+          }
+        ]
+      },
+      {
+        "key": "seo",
+        "name": "SEO & Analytics",
+        "icon": "📊",
+        "description": "Optimización para buscadores y analítica avanzada",
+        "category": "grow",
+        "popular": true,
+        "requires": [],
+        "payment_type": "subscription",
+        "tiers": [
+          {
+            "key": "standard",
+            "name": "Standard",
+            "commercial_product_key": "module.seo.standard",
+            "prices": [
+              {
+                "currency": "CHF",
+                "interval": "month",
+                "amount_minor": 1500,
+                "tax_behavior": "inclusive"
+              },
+              {
+                "currency": "EUR",
+                "interval": "month",
+                "amount_minor": 1650,
+                "tax_behavior": "inclusive"
+              }
+            ],
+            "price_chf": 15,
+            "features": [
+              "Analytics avanzadas",
+              "Google Search Console"
+            ],
+            "recommended": false
+          },
+          {
+            "key": "medio",
+            "name": "MEDIO",
+            "commercial_product_key": "module.seo.medio",
+            "prices": [
+              {
+                "currency": "CHF",
+                "interval": "month",
+                "amount_minor": 8500,
+                "tax_behavior": "inclusive"
+              }
+            ],
+            "price_chf": 85,
+            "features": [
+              "SEO on-page básico",
+              "Optimización de metadatos",
+              "Google Search Console"
+            ],
+            "recommended": false,
+            "flag_effects": {
+              "enable_analytics": true,
+              "enable_seo": true,
+              "enable_seo_tools": true
+            }
+          },
+          {
+            "key": "avanzado",
+            "name": "AVANZADO",
+            "commercial_product_key": "module.seo.avanzado",
+            "prices": [
+              {
+                "currency": "CHF",
+                "interval": "month",
+                "amount_minor": 23000,
+                "tax_behavior": "inclusive"
+              }
+            ],
+            "price_chf": 230,
+            "features": [
+              "Todo lo de MEDIO",
+              "SEO técnico completo",
+              "Link building",
+              "Reportes mensuales"
+            ],
+            "recommended": true,
+            "flag_effects": {
+              "enable_analytics": true,
+              "enable_seo": true,
+              "enable_seo_tools": true
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "commercial_catalog": {
+    "revision": 4,
+    "currencies": [
+      "CHF",
+      "EUR"
+    ],
+    "products": [
+      {
+        "product_key": "maintenance.monthly",
+        "product_type": "maintenance",
+        "billing_model": "recurring",
+        "access_policy": "subscription",
+        "access_duration_days": null,
+        "name": "BootandStrap Maintenance - monthly",
+        "description": "Recurring BootandStrap maintenance",
+        "prices": [
+          {
+            "currency": "CHF",
+            "interval": "month",
+            "amount_minor": 4000,
+            "tax_behavior": "inclusive"
+          },
+          {
+            "currency": "EUR",
+            "interval": "month",
+            "amount_minor": 4300,
+            "tax_behavior": "inclusive"
+          }
+        ]
+      },
+      {
+        "product_key": "maintenance.sixMonth",
+        "product_type": "maintenance",
+        "billing_model": "recurring",
+        "access_policy": "subscription",
+        "access_duration_days": null,
+        "name": "BootandStrap Maintenance - sixMonth",
+        "description": "Recurring BootandStrap maintenance",
+        "prices": [
+          {
+            "currency": "CHF",
+            "interval": "month",
+            "amount_minor": 4000,
+            "tax_behavior": "inclusive"
+          },
+          {
+            "currency": "EUR",
+            "interval": "month",
+            "amount_minor": 4300,
+            "tax_behavior": "inclusive"
+          }
+        ]
+      },
+      {
+        "product_key": "maintenance.yearly",
+        "product_type": "maintenance",
+        "billing_model": "recurring",
+        "access_policy": "subscription",
+        "access_duration_days": null,
+        "name": "BootandStrap Maintenance - yearly",
+        "description": "Recurring BootandStrap maintenance",
+        "prices": [
+          {
+            "currency": "CHF",
+            "interval": "month",
+            "amount_minor": 4000,
+            "tax_behavior": "inclusive"
+          },
+          {
+            "currency": "EUR",
+            "interval": "month",
+            "amount_minor": 4300,
+            "tax_behavior": "inclusive"
+          }
+        ]
+      },
+      {
+        "product_key": "module.auth_advanced.basic",
+        "product_type": "module",
+        "billing_model": "recurring",
+        "access_policy": "subscription",
+        "access_duration_days": null,
+        "name": "Advanced Auth - Basic",
+        "description": "Google OAuth",
+        "prices": [
+          {
+            "currency": "CHF",
+            "interval": "month",
+            "amount_minor": 500,
+            "tax_behavior": "inclusive"
+          },
+          {
+            "currency": "EUR",
+            "interval": "month",
+            "amount_minor": 550,
+            "tax_behavior": "inclusive"
+          }
+        ]
+      },
+      {
+        "product_key": "module.auth_advanced.enterprise",
+        "product_type": "module",
+        "billing_model": "recurring",
+        "access_policy": "subscription",
+        "access_duration_days": null,
+        "name": "Advanced Auth - Enterprise",
+        "description": "Todos los proveedores + 2FA + Magic Link",
+        "prices": [
+          {
+            "currency": "CHF",
+            "interval": "month",
+            "amount_minor": 2500,
+            "tax_behavior": "inclusive"
+          },
+          {
+            "currency": "EUR",
+            "interval": "month",
+            "amount_minor": 2750,
+            "tax_behavior": "inclusive"
+          }
+        ]
+      },
+      {
+        "product_key": "module.auth_advanced.pro",
+        "product_type": "module",
+        "billing_model": "recurring",
+        "access_policy": "subscription",
+        "access_duration_days": null,
+        "name": "Advanced Auth - Pro",
+        "description": "Google + Apple + Facebook",
+        "prices": [
+          {
+            "currency": "CHF",
+            "interval": "month",
+            "amount_minor": 1200,
+            "tax_behavior": "inclusive"
+          },
+          {
+            "currency": "EUR",
+            "interval": "month",
+            "amount_minor": 1320,
+            "tax_behavior": "inclusive"
+          }
+        ]
+      },
+      {
+        "product_key": "module.automation.basic",
+        "product_type": "module",
+        "billing_model": "recurring",
+        "access_policy": "subscription",
+        "access_duration_days": null,
+        "name": "Automations - Basic",
+        "description": "Connections with external services (n8n, Zapier, Make)",
+        "prices": [
+          {
+            "currency": "CHF",
+            "interval": "month",
+            "amount_minor": 2000,
+            "tax_behavior": "inclusive"
+          },
+          {
+            "currency": "EUR",
+            "interval": "month",
+            "amount_minor": 2200,
+            "tax_behavior": "inclusive"
+          }
+        ]
+      },
+      {
+        "product_key": "module.automation.pro",
+        "product_type": "module",
+        "billing_model": "recurring",
+        "access_policy": "subscription",
+        "access_duration_days": null,
+        "name": "Automations - Pro",
+        "description": "Connections with external services (n8n, Zapier, Make)",
+        "prices": [
+          {
+            "currency": "CHF",
+            "interval": "month",
+            "amount_minor": 4000,
+            "tax_behavior": "inclusive"
+          },
+          {
+            "currency": "EUR",
+            "interval": "month",
+            "amount_minor": 4400,
+            "tax_behavior": "inclusive"
+          }
+        ]
+      },
+      {
+        "product_key": "module.capacidad.basic",
+        "product_type": "module",
+        "billing_model": "recurring",
+        "access_policy": "subscription",
+        "access_duration_days": null,
+        "name": "Traffic Capacity - Basic",
+        "description": "Expand daily request capacity and add traffic analytics for your website",
+        "prices": [
+          {
+            "currency": "CHF",
+            "interval": "month",
+            "amount_minor": 1000,
+            "tax_behavior": "inclusive"
+          }
+        ]
+      },
+      {
+        "product_key": "module.capacidad.enterprise",
+        "product_type": "module",
+        "billing_model": "recurring",
+        "access_policy": "subscription",
+        "access_duration_days": null,
+        "name": "Traffic Capacity - Enterprise",
+        "description": "Expand daily request capacity and add traffic analytics for your website",
+        "prices": [
+          {
+            "currency": "CHF",
+            "interval": "month",
+            "amount_minor": 5000,
+            "tax_behavior": "inclusive"
+          }
+        ]
+      },
+      {
+        "product_key": "module.capacidad.pro",
+        "product_type": "module",
+        "billing_model": "recurring",
+        "access_policy": "subscription",
+        "access_duration_days": null,
+        "name": "Traffic Capacity - Pro",
+        "description": "Expand daily request capacity and add traffic analytics for your website",
+        "prices": [
+          {
+            "currency": "CHF",
+            "interval": "month",
+            "amount_minor": 2500,
+            "tax_behavior": "inclusive"
+          }
+        ]
+      },
+      {
+        "product_key": "module.chatbot.basic",
+        "product_type": "module",
+        "billing_model": "recurring",
+        "access_policy": "subscription",
+        "access_duration_days": null,
+        "name": "AI Chatbot - Basic",
+        "description": "Chatbot IA con 500 mensajes/mes",
+        "prices": [
+          {
+            "currency": "CHF",
+            "interval": "month",
+            "amount_minor": 2000,
+            "tax_behavior": "inclusive"
+          },
+          {
+            "currency": "EUR",
+            "interval": "month",
+            "amount_minor": 2200,
+            "tax_behavior": "inclusive"
+          }
+        ]
+      },
+      {
+        "product_key": "module.chatbot.pro",
+        "product_type": "module",
+        "billing_model": "recurring",
+        "access_policy": "subscription",
+        "access_duration_days": null,
+        "name": "AI Chatbot - Pro",
+        "description": "Chatbot IA con 5000 mensajes/mes",
+        "prices": [
+          {
+            "currency": "CHF",
+            "interval": "month",
+            "amount_minor": 4000,
+            "tax_behavior": "inclusive"
+          },
+          {
+            "currency": "EUR",
+            "interval": "month",
+            "amount_minor": 4400,
+            "tax_behavior": "inclusive"
+          }
+        ]
+      },
+      {
+        "product_key": "module.crm.basic",
+        "product_type": "module",
+        "billing_model": "recurring",
+        "access_policy": "subscription",
+        "access_duration_days": null,
+        "name": "CRM - Basic",
+        "description": "Contactos y notas",
+        "prices": [
+          {
+            "currency": "CHF",
+            "interval": "month",
+            "amount_minor": 1500,
+            "tax_behavior": "inclusive"
+          },
+          {
+            "currency": "EUR",
+            "interval": "month",
+            "amount_minor": 1650,
+            "tax_behavior": "inclusive"
+          }
+        ]
+      },
+      {
+        "product_key": "module.crm.pro",
+        "product_type": "module",
+        "billing_model": "recurring",
+        "access_policy": "subscription",
+        "access_duration_days": null,
+        "name": "CRM - Pro",
+        "description": "CRM completo con segmentación",
+        "prices": [
+          {
+            "currency": "CHF",
+            "interval": "month",
+            "amount_minor": 3000,
+            "tax_behavior": "inclusive"
+          },
+          {
+            "currency": "EUR",
+            "interval": "month",
+            "amount_minor": 3300,
+            "tax_behavior": "inclusive"
+          }
+        ]
+      },
+      {
+        "product_key": "module.ecommerce.basic",
+        "product_type": "module",
+        "billing_model": "recurring",
+        "access_policy": "subscription",
+        "access_duration_days": null,
+        "name": "Online Store - Basic",
+        "description": "Catálogo + pedidos básicos",
+        "prices": [
+          {
+            "currency": "CHF",
+            "interval": "month",
+            "amount_minor": 2500,
+            "tax_behavior": "inclusive"
+          },
+          {
+            "currency": "EUR",
+            "interval": "month",
+            "amount_minor": 2750,
+            "tax_behavior": "inclusive"
+          }
+        ]
+      },
+      {
+        "product_key": "module.ecommerce.enterprise",
+        "product_type": "module",
+        "billing_model": "recurring",
+        "access_policy": "subscription",
+        "access_duration_days": null,
+        "name": "Online Store - Enterprise",
+        "description": "Tienda sin límites",
+        "prices": [
+          {
+            "currency": "CHF",
+            "interval": "month",
+            "amount_minor": 7500,
+            "tax_behavior": "inclusive"
+          },
+          {
+            "currency": "EUR",
+            "interval": "month",
+            "amount_minor": 8250,
+            "tax_behavior": "inclusive"
+          }
+        ]
+      },
+      {
+        "product_key": "module.ecommerce.pro",
+        "product_type": "module",
+        "billing_model": "recurring",
+        "access_policy": "subscription",
+        "access_duration_days": null,
+        "name": "Online Store - Pro",
+        "description": "Tienda completa con marketing",
+        "prices": [
+          {
+            "currency": "CHF",
+            "interval": "month",
+            "amount_minor": 4500,
+            "tax_behavior": "inclusive"
+          },
+          {
+            "currency": "EUR",
+            "interval": "month",
+            "amount_minor": 4950,
+            "tax_behavior": "inclusive"
+          }
+        ]
+      },
+      {
+        "product_key": "module.email_marketing.basic",
+        "product_type": "module",
+        "billing_model": "recurring",
+        "access_policy": "subscription",
+        "access_duration_days": null,
+        "name": "Email Marketing - Basic",
+        "description": "Emails transaccionales básicos (500/mes)",
+        "prices": [
+          {
+            "currency": "CHF",
+            "interval": "month",
+            "amount_minor": 1500,
+            "tax_behavior": "inclusive"
+          },
+          {
+            "currency": "EUR",
+            "interval": "month",
+            "amount_minor": 1650,
+            "tax_behavior": "inclusive"
+          }
+        ]
+      },
+      {
+        "product_key": "module.email_marketing.enterprise",
+        "product_type": "module",
+        "billing_model": "recurring",
+        "access_policy": "subscription",
+        "access_duration_days": null,
+        "name": "Email Marketing - Enterprise",
+        "description": "10,000 emails/mes + campañas + editor de plantillas",
+        "prices": [
+          {
+            "currency": "CHF",
+            "interval": "month",
+            "amount_minor": 5000,
+            "tax_behavior": "inclusive"
+          },
+          {
+            "currency": "EUR",
+            "interval": "month",
+            "amount_minor": 5500,
+            "tax_behavior": "inclusive"
+          }
+        ]
+      },
+      {
+        "product_key": "module.email_marketing.pro",
+        "product_type": "module",
+        "billing_model": "recurring",
+        "access_policy": "subscription",
+        "access_duration_days": null,
+        "name": "Email Marketing - Pro",
+        "description": "2,000 emails/mes + abandono de carrito + reseñas",
+        "prices": [
+          {
+            "currency": "CHF",
+            "interval": "month",
+            "amount_minor": 3000,
+            "tax_behavior": "inclusive"
+          },
+          {
+            "currency": "EUR",
+            "interval": "month",
+            "amount_minor": 3300,
+            "tax_behavior": "inclusive"
+          }
+        ]
+      },
+      {
+        "product_key": "module.i18n.basic",
+        "product_type": "module",
+        "billing_model": "one_time",
+        "access_policy": "permanent",
+        "access_duration_days": null,
+        "name": "Multi-language & Currency - 2 Languages",
+        "description": "Tu tienda en 2 idiomas",
+        "prices": [
+          {
+            "currency": "CHF",
+            "interval": null,
+            "amount_minor": 1500,
+            "tax_behavior": "inclusive"
+          },
+          {
+            "currency": "EUR",
+            "interval": null,
+            "amount_minor": 1650,
+            "tax_behavior": "inclusive"
+          }
+        ]
+      },
+      {
+        "product_key": "module.i18n.pro",
+        "product_type": "module",
+        "billing_model": "one_time",
+        "access_policy": "permanent",
+        "access_duration_days": null,
+        "name": "Multi-language & Currency - 5 Languages + Currencies",
+        "description": "Tu tienda en 5 idiomas y 5 monedas",
+        "prices": [
+          {
+            "currency": "CHF",
+            "interval": null,
+            "amount_minor": 3500,
+            "tax_behavior": "inclusive"
+          },
+          {
+            "currency": "EUR",
+            "interval": null,
+            "amount_minor": 3850,
+            "tax_behavior": "inclusive"
+          }
+        ]
+      },
+      {
+        "product_key": "module.pos_kiosk.basic",
+        "product_type": "module",
+        "billing_model": "recurring",
+        "access_policy": "subscription",
+        "access_duration_days": null,
+        "name": "Modo Kiosco POS - Básico",
+        "description": "Terminal de autoservicio interactivo para tus clientes",
+        "prices": [
+          {
+            "currency": "CHF",
+            "interval": "month",
+            "amount_minor": 500,
+            "tax_behavior": "inclusive"
+          },
+          {
+            "currency": "EUR",
+            "interval": "month",
+            "amount_minor": 540,
+            "tax_behavior": "inclusive"
+          }
+        ]
+      },
+      {
+        "product_key": "module.pos_kiosk.enterprise",
+        "product_type": "module",
+        "billing_model": "recurring",
+        "access_policy": "subscription",
+        "access_duration_days": null,
+        "name": "Modo Kiosco POS - Premium",
+        "description": "Terminal de autoservicio interactivo para tus clientes",
+        "prices": [
+          {
+            "currency": "CHF",
+            "interval": "month",
+            "amount_minor": 5900,
+            "tax_behavior": "inclusive"
+          }
+        ]
+      },
+      {
+        "product_key": "module.pos_kiosk.pro",
+        "product_type": "module",
+        "billing_model": "recurring",
+        "access_policy": "subscription",
+        "access_duration_days": null,
+        "name": "Modo Kiosco POS - Avanzado",
+        "description": "Terminal de autoservicio interactivo para tus clientes",
+        "prices": [
+          {
+            "currency": "CHF",
+            "interval": "month",
+            "amount_minor": 2900,
+            "tax_behavior": "inclusive"
+          }
+        ]
+      },
+      {
+        "product_key": "module.pos.basic",
+        "product_type": "module",
+        "billing_model": "recurring",
+        "access_policy": "subscription",
+        "access_duration_days": null,
+        "name": "Point of Sale - Basic",
+        "description": "Web POS terminal with barcode scanner, receipts, kiosk mode and Medusa draft orders",
+        "prices": [
+          {
+            "currency": "CHF",
+            "interval": "month",
+            "amount_minor": 500,
+            "tax_behavior": "inclusive"
+          },
+          {
+            "currency": "EUR",
+            "interval": "month",
+            "amount_minor": 540,
+            "tax_behavior": "inclusive"
+          }
+        ]
+      },
+      {
+        "product_key": "module.pos.enterprise",
+        "product_type": "module",
+        "billing_model": "recurring",
+        "access_policy": "subscription",
+        "access_duration_days": null,
+        "name": "Point of Sale - Enterprise",
+        "description": "Web POS terminal with barcode scanner, receipts, kiosk mode and Medusa draft orders",
+        "prices": [
+          {
+            "currency": "CHF",
+            "interval": "month",
+            "amount_minor": 5500,
+            "tax_behavior": "inclusive"
+          }
+        ]
+      },
+      {
+        "product_key": "module.pos.pro",
+        "product_type": "module",
+        "billing_model": "recurring",
+        "access_policy": "subscription",
+        "access_duration_days": null,
+        "name": "Point of Sale - Pro",
+        "description": "Web POS terminal with barcode scanner, receipts, kiosk mode and Medusa draft orders",
+        "prices": [
+          {
+            "currency": "CHF",
+            "interval": "month",
+            "amount_minor": 3500,
+            "tax_behavior": "inclusive"
+          }
+        ]
+      },
+      {
+        "product_key": "module.rrss.google_maps",
+        "product_type": "module",
+        "billing_model": "one_time",
+        "access_policy": "permanent",
+        "access_duration_days": null,
+        "name": "Social Media - Google Maps",
+        "description": "Social media links and buttons on your site",
+        "prices": [
+          {
+            "currency": "CHF",
+            "interval": null,
+            "amount_minor": 9000,
+            "tax_behavior": "inclusive"
+          }
+        ]
+      },
+      {
+        "product_key": "module.rrss.google_maps_instagram",
+        "product_type": "module",
+        "billing_model": "one_time",
+        "access_policy": "permanent",
+        "access_duration_days": null,
+        "name": "Social Media - Google Maps + Instagram",
+        "description": "Social media links and buttons on your site",
+        "prices": [
+          {
+            "currency": "CHF",
+            "interval": null,
+            "amount_minor": 15000,
+            "tax_behavior": "inclusive"
+          }
+        ]
+      },
+      {
+        "product_key": "module.rrss.instagram",
+        "product_type": "module",
+        "billing_model": "one_time",
+        "access_policy": "permanent",
+        "access_duration_days": null,
+        "name": "Social Media - Instagram",
+        "description": "Social media links and buttons on your site",
+        "prices": [
+          {
+            "currency": "CHF",
+            "interval": null,
+            "amount_minor": 8500,
+            "tax_behavior": "inclusive"
+          }
+        ]
+      },
+      {
+        "product_key": "module.rrss.paquete_avanzado",
+        "product_type": "module",
+        "billing_model": "one_time",
+        "access_policy": "permanent",
+        "access_duration_days": null,
+        "name": "Social Media - Paquete avanzado de recursos visuales",
+        "description": "Social media links and buttons on your site",
+        "prices": [
+          {
+            "currency": "CHF",
+            "interval": null,
+            "amount_minor": 14500,
+            "tax_behavior": "inclusive"
+          }
+        ]
+      },
+      {
+        "product_key": "module.rrss.paquete_basico",
+        "product_type": "module",
+        "billing_model": "one_time",
+        "access_policy": "permanent",
+        "access_duration_days": null,
+        "name": "Social Media - Paquete básico de recursos visuales",
+        "description": "Social media links and buttons on your site",
+        "prices": [
+          {
+            "currency": "CHF",
+            "interval": null,
+            "amount_minor": 10500,
+            "tax_behavior": "inclusive"
+          }
+        ]
+      },
+      {
+        "product_key": "module.rrss.standard",
+        "product_type": "module",
+        "billing_model": "one_time",
+        "access_policy": "permanent",
+        "access_duration_days": null,
+        "name": "Social Media - Standard",
+        "description": "Social media links and buttons on your site",
+        "prices": [
+          {
+            "currency": "CHF",
+            "interval": null,
+            "amount_minor": 9500,
+            "tax_behavior": "inclusive"
+          },
+          {
+            "currency": "EUR",
+            "interval": null,
+            "amount_minor": 10450,
+            "tax_behavior": "inclusive"
+          }
+        ]
+      },
+      {
+        "product_key": "module.sales_channels.basic",
+        "product_type": "module",
+        "billing_model": "recurring",
+        "access_policy": "subscription",
+        "access_duration_days": null,
+        "name": "Sales & Payment Channels - Basic",
+        "description": "WhatsApp checkout + contact",
+        "prices": [
+          {
+            "currency": "CHF",
+            "interval": "month",
+            "amount_minor": 1500,
+            "tax_behavior": "inclusive"
+          },
+          {
+            "currency": "EUR",
+            "interval": "month",
+            "amount_minor": 1650,
+            "tax_behavior": "inclusive"
+          }
+        ]
+      },
+      {
+        "product_key": "module.sales_channels.enterprise",
+        "product_type": "module",
+        "billing_model": "recurring",
+        "access_policy": "subscription",
+        "access_duration_days": null,
+        "name": "Sales & Payment Channels - Enterprise",
+        "description": "Todos los canales de pago",
+        "prices": [
+          {
+            "currency": "CHF",
+            "interval": "month",
+            "amount_minor": 5000,
+            "tax_behavior": "inclusive"
+          },
+          {
+            "currency": "EUR",
+            "interval": "month",
+            "amount_minor": 5500,
+            "tax_behavior": "inclusive"
+          }
+        ]
+      },
+      {
+        "product_key": "module.sales_channels.pro",
+        "product_type": "module",
+        "billing_model": "recurring",
+        "access_policy": "subscription",
+        "access_duration_days": null,
+        "name": "Sales & Payment Channels - Pro",
+        "description": "Multi-payment + newsletter",
+        "prices": [
+          {
+            "currency": "CHF",
+            "interval": "month",
+            "amount_minor": 3000,
+            "tax_behavior": "inclusive"
+          },
+          {
+            "currency": "EUR",
+            "interval": "month",
+            "amount_minor": 3300,
+            "tax_behavior": "inclusive"
+          }
+        ]
+      },
+      {
+        "product_key": "module.seo.avanzado",
+        "product_type": "module",
+        "billing_model": "recurring",
+        "access_policy": "subscription",
+        "access_duration_days": null,
+        "name": "SEO + Analytics - AVANZADO",
+        "description": "Web positioning and performance tracking",
+        "prices": [
+          {
+            "currency": "CHF",
+            "interval": "month",
+            "amount_minor": 23000,
+            "tax_behavior": "inclusive"
+          }
+        ]
+      },
+      {
+        "product_key": "module.seo.medio",
+        "product_type": "module",
+        "billing_model": "recurring",
+        "access_policy": "subscription",
+        "access_duration_days": null,
+        "name": "SEO + Analytics - MEDIO",
+        "description": "Web positioning and performance tracking",
+        "prices": [
+          {
+            "currency": "CHF",
+            "interval": "month",
+            "amount_minor": 8500,
+            "tax_behavior": "inclusive"
+          }
+        ]
+      },
+      {
+        "product_key": "module.seo.standard",
+        "product_type": "module",
+        "billing_model": "recurring",
+        "access_policy": "subscription",
+        "access_duration_days": null,
+        "name": "SEO + Analytics - Standard",
+        "description": "Web positioning and performance tracking",
+        "prices": [
+          {
+            "currency": "CHF",
+            "interval": "month",
+            "amount_minor": 1500,
+            "tax_behavior": "inclusive"
+          },
+          {
+            "currency": "EUR",
+            "interval": "month",
+            "amount_minor": 1650,
+            "tax_behavior": "inclusive"
+          }
+        ]
+      },
+      {
+        "product_key": "web_base.monthly",
+        "product_type": "web_base",
+        "billing_model": "one_time",
+        "access_policy": "permanent",
+        "access_duration_days": null,
+        "name": "BootandStrap Web Base - monthly",
+        "description": "One-time BootandStrap web base setup",
+        "prices": [
+          {
+            "currency": "CHF",
+            "interval": null,
+            "amount_minor": 150000,
+            "tax_behavior": "inclusive"
+          },
+          {
+            "currency": "EUR",
+            "interval": null,
+            "amount_minor": 162000,
+            "tax_behavior": "inclusive"
+          }
+        ]
+      },
+      {
+        "product_key": "web_base.sixMonth",
+        "product_type": "web_base",
+        "billing_model": "one_time",
+        "access_policy": "permanent",
+        "access_duration_days": null,
+        "name": "BootandStrap Web Base - sixMonth",
+        "description": "One-time BootandStrap web base setup",
+        "prices": [
+          {
+            "currency": "CHF",
+            "interval": null,
+            "amount_minor": 145000,
+            "tax_behavior": "inclusive"
+          },
+          {
+            "currency": "EUR",
+            "interval": null,
+            "amount_minor": 157000,
+            "tax_behavior": "inclusive"
+          }
+        ]
+      },
+      {
+        "product_key": "web_base.yearly",
+        "product_type": "web_base",
+        "billing_model": "one_time",
+        "access_policy": "permanent",
+        "access_duration_days": null,
+        "name": "BootandStrap Web Base - yearly",
+        "description": "One-time BootandStrap web base setup",
+        "prices": [
+          {
+            "currency": "CHF",
+            "interval": null,
+            "amount_minor": 135000,
+            "tax_behavior": "inclusive"
+          },
+          {
+            "currency": "EUR",
+            "interval": null,
+            "amount_minor": 146000,
+            "tax_behavior": "inclusive"
+          }
+        ]
+      }
+    ]
+  },
+  "pricing": {
+    "maintenance_chf_month": 40,
+    "web_base_chf_onetime": 1500
+  },
+  "config_aliases": {
+    "store_email": "order_confirmation_email"
+  }
+}
