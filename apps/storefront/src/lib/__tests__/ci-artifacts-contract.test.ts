@@ -258,6 +258,7 @@ describe('CI artifact contract', () => {
                 expect.stringContaining('desktop/tablet/mobile'),
                 expect.stringContaining('accessibility'),
                 expect.stringContaining('loading, empty, error, modal or toast'),
+                expect.stringContaining('order lookup'),
             ])
         )
         expect(runner).toContain('isAllowedStorefrontPlaywrightCommand')
@@ -270,6 +271,10 @@ describe('CI artifact contract', () => {
 
     it('tracks visible loading, modal and toast runtime states with dedicated evidence', () => {
         const visualSpec = readFileSync(join(REPO_ROOT, 'apps/storefront/e2e/runtime-visual-evidence.spec.ts'), 'utf8')
+        const orderLookupPage = readFileSync(
+            join(REPO_ROOT, 'apps/storefront/src/app/[lang]/(shop)/pedido/page.tsx'),
+            'utf8'
+        )
 
         expect(visualSpec).toContain("state: 'loading'")
         expect(visualSpec).toContain("state: 'modal'")
@@ -281,6 +286,17 @@ describe('CI artifact contract', () => {
         expect(visualSpec).toContain('/api/newsletter')
         expect(visualSpec).toContain('newsletter-submit-button')
         expect(visualSpec).toContain('newsletter-submit-spinner')
+        expect(visualSpec).toContain('order-lookup-loading')
+        expect(visualSpec).toContain('order-lookup-not-found')
+        expect(visualSpec).toContain('/api/orders/lookup')
+        expect(visualSpec).toContain('order-lookup-submit')
+        expect(visualSpec).toContain('order-lookup-spinner')
+        expect(visualSpec).toContain('order-lookup-error')
+        expect(visualSpec).toContain('visual-state-loading-order-lookup')
+        expect(visualSpec).toContain('visual-state-error-order-lookup')
+        expect(visualSpec).toContain('shouldRequireOrderLookupStates')
+        expect(visualSpec).toContain("route.request().method() !== 'POST'")
+        expect(visualSpec).toContain('waitUntilIntercepted')
         expect(visualSpec).toContain('cart-drawer')
         expect(visualSpec).toContain('product.quickView')
         expect(visualSpec).toContain('visual-state-loading')
@@ -293,6 +309,11 @@ describe('CI artifact contract', () => {
         expect(visualSpec).toContain('apps/storefront/src/app/[lang]/(shop)/carrito/loading.tsx')
         expect(visualSpec).toContain('apps/storefront/src/app/[lang]/(shop)/checkout/loading.tsx')
         expect(visualSpec).toContain('apps/storefront/src/app/[lang]/(shop)/productos/[handle]/loading.tsx')
+        expect(orderLookupPage).toContain('htmlFor="order-lookup-email"')
+        expect(orderLookupPage).toContain('id="order-lookup-email"')
+        expect(orderLookupPage).toContain('htmlFor="order-lookup-id"')
+        expect(orderLookupPage).toContain('id="order-lookup-id"')
+        expect(orderLookupPage).toContain('role="alert"')
     })
 
     it('stabilizes motion before runtime visual screenshots and axe scans', () => {
@@ -322,12 +343,26 @@ describe('CI artifact contract', () => {
     it('prepares CI to execute visual runtime evidence locally', () => {
         const workflow = readWorkflow('ci.yml')
         const runner = readScript('run-risk-domain-evidence.mjs')
+        const riskDomainEvidenceStep = workflow
+            .split(/\n(?= {6}- name: )/)
+            .find((step) => step.startsWith('      - name: Risk Domain Evidence\n'))
 
         expect(workflow).toContain('name: Install Playwright Chromium')
         expect(workflow).toContain('pnpm --filter=storefront exec playwright install --with-deps chromium')
-        expect(workflow).toMatch(/name: Risk Domain Evidence[\s\S]*CI: ''/)
-        expect(workflow).toMatch(/name: Risk Domain Evidence[\s\S]*NEXT_PUBLIC_SUPABASE_ANON_KEY: placeholder/)
+        expect(riskDomainEvidenceStep).toBeDefined()
+        expect(riskDomainEvidenceStep).toContain("CI: ''")
+        expect(riskDomainEvidenceStep).toContain("BNS_RUNTIME_REQUIRE_ORDER_LOOKUP_STATES: '1'")
+        expect(riskDomainEvidenceStep).toContain(
+            'NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.TEST_SUPABASE_URL }}'
+        )
+        expect(riskDomainEvidenceStep).toContain(
+            'TENANT_ID: ${{ secrets.TEST_TENANT_ID }}'
+        )
+        expect(riskDomainEvidenceStep).toContain(
+            'NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.TEST_SUPABASE_ANON_KEY }}'
+        )
         expect(runner).toContain("'NEXT_PUBLIC_SUPABASE_ANON_KEY'")
+        expect(runner).toContain("'BNS_RUNTIME_REQUIRE_ORDER_LOOKUP_STATES'")
         expect(runner).toContain("env.NEXT_PUBLIC_SUPABASE_ANON_KEY = env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? 'placeholder'")
     })
 

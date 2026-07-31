@@ -32,6 +32,18 @@ type RuntimeLoadingState = {
     spinnerTestId: string
 }
 
+type OrderLookupRuntimeState = {
+    loadingName: string
+    notFoundName: string
+    path: string
+    requestPath: string
+    emailTestId: string
+    orderIdTestId: string
+    buttonTestId: string
+    spinnerTestId: string
+    errorTestId: string
+}
+
 type InteractiveState = {
     name: string
     path: string
@@ -52,6 +64,10 @@ type RuntimeVisualRouteRetryConfig = {
 
 type DelayedRuntimeFetch = {
     release: () => Promise<void>
+}
+
+type InterceptedRuntimeFetch = DelayedRuntimeFetch & {
+    waitUntilIntercepted: () => Promise<void>
 }
 
 type AxeViolation = {
@@ -123,6 +139,18 @@ const runtimeLoadingStates: RuntimeLoadingState[] = [
     },
 ]
 
+const orderLookupRuntimeState: OrderLookupRuntimeState = {
+    loadingName: 'order-lookup-loading',
+    notFoundName: 'order-lookup-not-found',
+    path: '/es/pedido',
+    requestPath: '/api/orders/lookup',
+    emailTestId: 'order-lookup-email',
+    orderIdTestId: 'order-lookup-id',
+    buttonTestId: 'order-lookup-submit',
+    spinnerTestId: 'order-lookup-spinner',
+    errorTestId: 'order-lookup-error',
+}
+
 const _quickViewTranslationKey = 'product.quickView'
 const quickViewLabelPattern = /vista rápida|quick view|aperçu rapide|anteprima rapida|schnellansicht/i
 
@@ -140,6 +168,11 @@ function shouldRequireInteractiveStates() {
     const targetsRemoteRuntime = /^https?:\/\//i.test(baseUrl) && !/^https?:\/\/(localhost|127\.0\.0\.1|0\.0\.0\.0)(:\d+)?/i.test(baseUrl)
 
     return process.env.BNS_RUNTIME_REQUIRE_INTERACTIVE_STATES === '1' || targetsRemoteRuntime
+}
+
+function shouldRequireOrderLookupStates() {
+    return process.env.BNS_RUNTIME_REQUIRE_ORDER_LOOKUP_STATES === '1'
+        || shouldRequireInteractiveStates()
 }
 
 function parsePositiveInteger(value: string | undefined, fallback: number) {
@@ -410,6 +443,87 @@ async function prepareNewsletterSubmitLoadingState(
     return { available: true, delayedFetch }
 }
 
+async function delayNextOrderLookupFetch(
+    page: Page,
+    targetPath: string
+): Promise<InterceptedRuntimeFetch> {
+    const normalizedTargetPath = `/${targetPath.replace(/^\//, '').split('?')[0]}`
+    let releaseFetch!: () => void
+    let released = false
+    let routeWasDelayed = false
+    const releasePromise = new Promise<void>((resolve) => {
+        releaseFetch = resolve
+    })
+
+    await page.route(
+        (url) => url.pathname === normalizedTargetPath,
+        async (route) => {
+            if (route.request().method() !== 'POST') {
+                await route.continue()
+                return
+            }
+
+            routeWasDelayed = true
+            await releasePromise
+            await route.fulfill({
+                status: 404,
+                contentType: 'application/json',
+                body: JSON.stringify({ error: 'order not found' }),
+            }).catch(() => {})
+        }
+    )
+
+    return {
+        waitUntilIntercepted: async () => {
+            await expect.poll(
+                () => routeWasDelayed,
+                {
+                    message: `expected POST ${normalizedTargetPath} to be intercepted`,
+                    timeout: 5_000,
+                }
+            ).toBe(true)
+        },
+        release: async () => {
+            if (!released) {
+                released = true
+                releaseFetch()
+            }
+            if (routeWasDelayed) {
+                await page.waitForTimeout(100)
+            }
+        },
+    }
+}
+
+async function prepareOrderLookupLoadingState(
+    page: Page,
+    testInfo: TestInfo,
+    state: OrderLookupRuntimeState,
+    viewport: VisualViewport
+): Promise<ProductRouteAvailability & { delayedFetch?: InterceptedRuntimeFetch }> {
+    const response = await gotoRuntimeVisualRouteWithBackoff(page, state.path, [200])
+    expect(response?.status() ?? 200).toBe(200)
+
+    const button = page.getByTestId(state.buttonTestId)
+    const hasOrderLookup = await button.isVisible({ timeout: 20_000 }).catch(() => false)
+    if (!hasOrderLookup) {
+        const reason = 'order lookup runtime evidence requires the guest lookup form'
+        await testInfo.attach(`visual-state-loading-order-lookup-${viewport.name}-runtime-unavailable`, {
+            body: await page.screenshot({ fullPage: true }),
+            contentType: 'image/png',
+        })
+
+        return { available: false, reason }
+    }
+
+    const delayedFetch = await delayNextOrderLookupFetch(page, state.requestPath)
+    await page.getByTestId(state.emailTestId).fill(`runtime-evidence-${Date.now()}@example.test`)
+    await page.getByTestId(state.orderIdTestId).fill('999999999')
+    await button.click()
+
+    return { available: true, delayedFetch }
+}
+
 async function prepareProductsRoute(
     page: Page,
     testInfo: TestInfo,
@@ -532,6 +646,56 @@ test.describe('runtime visual evidence', () => {
                 await attachRuntimeEvidence(page, testInfo, {
                     screenshot: `visual-state-loading-${state.name}-${loadingEvidenceViewport.name}`,
                     axe: `axe-core-visual-state-loading-${state.name}-${loadingEvidenceViewport.name}`,
+                })
+                expect(blockingConsoleMessages).toEqual([])
+            } finally {
+                await delayedFetch?.release()
+                await page.unrouteAll({ behavior: 'ignoreErrors' })
+            }
+        })
+    }
+
+    for (const viewport of viewports.filter(({ name }) => name === 'desktop' || name === 'mobile')) {
+        test(`order lookup renders loading and not-found visual evidence on ${viewport.name}`, async ({ page }, testInfo) => {
+            const blockingConsoleMessages = collectBlockingConsoleMessages(page)
+            await page.addInitScript({ content: axeSource })
+            await page.setViewportSize({ width: viewport.width, height: viewport.height })
+            let delayedFetch: InterceptedRuntimeFetch | undefined
+
+            try {
+                const availability = await prepareOrderLookupLoadingState(
+                    page,
+                    testInfo,
+                    orderLookupRuntimeState,
+                    viewport
+                )
+                delayedFetch = availability.delayedFetch
+                if (!availability.available) {
+                    if (shouldRequireOrderLookupStates()) {
+                        throw new Error(availability.reason)
+                    }
+
+                    test.skip(true, availability.reason)
+                }
+
+                expect(delayedFetch).toBeDefined()
+                await delayedFetch!.waitUntilIntercepted()
+                await expect(page.getByTestId(orderLookupRuntimeState.buttonTestId)).toBeDisabled()
+                await expect(page.getByTestId(orderLookupRuntimeState.spinnerTestId)).toBeVisible()
+                await attachRuntimeEvidence(page, testInfo, {
+                    screenshot: `visual-state-loading-order-lookup-${viewport.name}`,
+                    axe: `axe-core-visual-state-loading-order-lookup-${viewport.name}`,
+                })
+
+                await delayedFetch?.release()
+
+                const error = page.getByTestId(orderLookupRuntimeState.errorTestId)
+                await expect(error).toBeVisible({ timeout: 5_000 })
+                await expect(error).toContainText(/\S+/)
+                await expect(page.getByTestId(orderLookupRuntimeState.buttonTestId)).toBeEnabled()
+                await attachRuntimeEvidence(page, testInfo, {
+                    screenshot: `visual-state-error-order-lookup-${viewport.name}`,
+                    axe: `axe-core-visual-state-error-order-lookup-${viewport.name}`,
                 })
                 expect(blockingConsoleMessages).toEqual([])
             } finally {
