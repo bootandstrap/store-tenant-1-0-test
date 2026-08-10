@@ -17,7 +17,7 @@ const SCRIPT_PATH = fileURLToPath(import.meta.url)
 const SCRIPT_DIR = dirname(SCRIPT_PATH)
 const ROOT_DIR = resolve(SCRIPT_DIR, '..')
 const DEFAULT_MATRIX_PATH = join(SCRIPT_DIR, 'risk-test-matrix.json')
-const DEFAULT_SUMMARY_PATH = join(ROOT_DIR, '.artifacts', 'risk-domain-evidence', 'summary.json')
+const DEFAULT_SUMMARY_PATH = join(ROOT_DIR, '.artifacts', 'assurance', 'risk-domain-evidence.json')
 const DEFAULT_TASK_RECEIPT_PATH = join(
   ROOT_DIR,
   '.artifacts',
@@ -111,6 +111,21 @@ function dependencyCommand(parts) {
   return matches ? { kind: 'dependency', parts, paths: [] } : null
 }
 
+function medusaEvidenceCommand(parts, command) {
+  if (parts.length === 2
+    && parts[0] === 'node'
+    && parts[1] === 'scripts/run-medusa-postgres-assurance.mjs') {
+    return { kind: 'medusa-postgres', parts, paths: [] }
+  }
+  const prefix = ['pnpm', '--dir', 'apps/medusa', 'test:unit', '--']
+  if (!prefix.every((part, index) => parts[index] === part) || parts.length <= prefix.length) return null
+  return {
+    kind: 'medusa-unit',
+    parts,
+    paths: parts.slice(prefix.length).map((path) => assertSafeRelativePath(path, /^src\/.+\.spec\.ts$/)),
+  }
+}
+
 function assertStorefrontCommandPrefix(parts, command) {
   const storefrontPrefix = ['pnpm', '--filter=storefront', 'exec']
   if (!storefrontPrefix.every((part, index) => parts[index] === part)) {
@@ -140,6 +155,8 @@ function classifyCommand(command) {
   const parts = splitCommand(command)
   const dependency = dependencyCommand(parts)
   if (dependency) return dependency
+  const medusa = medusaEvidenceCommand(parts, command)
+  if (medusa) return medusa
   assertStorefrontCommandPrefix(parts, command)
   return testRunnerCommand(parts, command)
 }
@@ -199,7 +216,7 @@ function planDomainCommand(domain, command, passedFiles) {
     domainId: domain.id,
     command,
     kind: classified.kind,
-    status: classified.kind === 'playwright' ? 'execute' : 'reused',
+    status: ['playwright', 'medusa-unit', 'medusa-postgres'].includes(classified.kind) ? 'execute' : 'reused',
     parts: classified.parts,
   }
 }
@@ -320,7 +337,7 @@ export async function runRiskDomainEvidence({
         startedAt,
         status: 'failed',
       }))
-      throw new Error(`${entry.domainId}: Playwright evidence failed`)
+      throw new Error(`${entry.domainId}: ${entry.kind} evidence failed`)
     }
     commandSummary.status = 'passed'
     executedCommands += 1

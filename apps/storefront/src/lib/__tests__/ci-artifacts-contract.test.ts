@@ -271,12 +271,30 @@ describe('CI artifact contract', () => {
         const posDomain = matrix.domains.find((domain) => domain.id === 'pos-simulator')
         expect(posDomain?.requiredTestFiles).toEqual(expect.arrayContaining([
             'apps/storefront/src/lib/bns-360/__tests__/pos-primary-journey.test.ts',
+            'apps/storefront/src/lib/pos/__tests__/medusa-pos-module.behavior.test.ts',
             'apps/storefront/src/lib/pos/customers/__tests__/customer-refund.test.ts',
+            'apps/storefront/src/lib/pos/refunds/__tests__/refund-actions.behavior.test.ts',
+            'apps/storefront/src/lib/pos/shifts/__tests__/shift-actions.behavior.test.ts',
+            'apps/storefront/src/lib/pos/offline/__tests__/product-sync.behavior.test.ts',
             'apps/storefront/src/lib/pos/history/__tests__/history.test.ts',
+            'apps/storefront/src/lib/pos/__tests__/use-barcode-scanner.behavior.test.ts',
+            'apps/storefront/src/lib/pos/__tests__/use-pos-sounds.behavior.test.ts',
+            'apps/storefront/src/lib/pos/__tests__/use-printer-connection.behavior.test.ts',
+            'apps/storefront/src/lib/pos/history/__tests__/sales-history.behavior.test.ts',
+            'apps/storefront/src/lib/pos/history/__tests__/daily-stats.behavior.test.ts',
         ]))
         expect(posDomain?.runtimeEvidence.join('\n')).toContain('pos-primary-journey.test.ts')
+        expect(posDomain?.runtimeEvidence.join('\n')).toContain('medusa-pos-module.behavior.test.ts')
         expect(posDomain?.runtimeEvidence.join('\n')).toContain('customer-refund.test.ts')
+        expect(posDomain?.runtimeEvidence.join('\n')).toContain('refund-actions.behavior.test.ts')
+        expect(posDomain?.runtimeEvidence.join('\n')).toContain('shift-actions.behavior.test.ts')
+        expect(posDomain?.runtimeEvidence.join('\n')).toContain('product-sync.behavior.test.ts')
         expect(posDomain?.runtimeEvidence.join('\n')).toContain('history.test.ts')
+        expect(posDomain?.runtimeEvidence.join('\n')).toContain('use-barcode-scanner.behavior.test.ts')
+        expect(posDomain?.runtimeEvidence.join('\n')).toContain('use-pos-sounds.behavior.test.ts')
+        expect(posDomain?.runtimeEvidence.join('\n')).toContain('use-printer-connection.behavior.test.ts')
+        expect(posDomain?.runtimeEvidence.join('\n')).toContain('sales-history.behavior.test.ts')
+        expect(posDomain?.runtimeEvidence.join('\n')).toContain('daily-stats.behavior.test.ts')
     })
 
     it('runs the critical risk-domain test matrix in GitHub CI', () => {
@@ -296,6 +314,55 @@ describe('CI artifact contract', () => {
         expect(workflow).toContain('name: Risk Domain Evidence')
         expect(workflow).toContain('node scripts/run-risk-domain-evidence.mjs')
         expect(runner).toContain('risk-test-matrix.json')
+    })
+
+    it('provides an isolated read-only dispatch mode for exact full assurance evidence', () => {
+        const workflow = readWorkflow('governance-gate.yml')
+        const localAssurance = workflow.slice(
+            workflow.indexOf('  local-assurance:'),
+            workflow.indexOf('  summary:')
+        )
+
+        expect(workflow).toContain('assurance_only:')
+        expect(workflow).toContain('permissions:\n  contents: read')
+        for (const job of [
+            'shared-package-tests',
+            'governance-drift',
+            'architecture-gate',
+            'medusa-typecheck',
+        ]) {
+            expect(workflow).toContain(
+                `  ${job}:\n` +
+                "    if: github.event_name != 'workflow_dispatch' || !inputs.assurance_only"
+            )
+        }
+        expect(localAssurance).toContain(
+            "if: github.event_name == 'workflow_dispatch' && inputs.assurance_only"
+        )
+        expect(localAssurance).toContain('persist-credentials: false')
+        expect(localAssurance).toContain('uses: actions/checkout@v7')
+        expect(localAssurance).toContain('uses: pnpm/action-setup@v6')
+        expect(localAssurance).toContain('uses: actions/setup-node@v7')
+        expect(localAssurance).toContain('uses: actions/upload-artifact@v7')
+        expect(localAssurance).not.toMatch(
+            /uses: (?:actions\/(?:checkout|setup-node|upload-artifact)|pnpm\/action-setup)@v4/
+        )
+        expect(localAssurance).toContain('node-version: 24')
+        expect(localAssurance).toContain(
+            'astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0'
+        )
+        expect(localAssurance).toContain("version: '0.9.15'")
+        expect(localAssurance).toContain('pnpm install --frozen-lockfile')
+        expect(localAssurance).toContain(
+            'pnpm --filter=storefront exec playwright install --with-deps chromium'
+        )
+        expect(localAssurance).toContain('pnpm assurance:full -- --no-cache')
+        expect(localAssurance).toContain("CI: ''")
+        expect(localAssurance).toContain('node scripts/verify-ci-assurance-evidence.mjs')
+        expect(localAssurance).toContain('name: assurance-full-${{ github.sha }}')
+        expect(localAssurance).toContain('if-no-files-found: error')
+        expect(localAssurance).toContain('retention-days: 14')
+        expect(localAssurance).not.toMatch(/secrets\.|environment:|deploy|publish|curl\s/)
     })
 
     it('triggers template propagation when reusable runtime evidence changes', () => {
@@ -536,7 +603,6 @@ describe('CI artifact contract', () => {
             }>
         }
         const visualDomain = matrix.domains.find((domain) => domain.id === 'visual-runtime-primary-routes')
-        const runner = readScript('run-risk-domain-evidence.mjs')
         const visualSpec = readFileSync(join(REPO_ROOT, 'apps/storefront/e2e/runtime-visual-evidence.spec.ts'), 'utf8')
 
         expect(visualDomain).toBeDefined()
@@ -562,8 +628,6 @@ describe('CI artifact contract', () => {
         expect(visualDomain?.runtimeEvidence).toContain(
             'pnpm --filter=storefront exec vitest run src/components/products/__tests__/product-listing-page-performance-contract.test.ts'
         )
-        expect(runner).toContain("classified.kind === 'playwright'")
-        expect(runner).toContain("entry.status === 'reused'")
         expect(visualSpec).toContain('desktop')
         expect(visualSpec).toContain('tablet')
         expect(visualSpec).toContain('mobile')

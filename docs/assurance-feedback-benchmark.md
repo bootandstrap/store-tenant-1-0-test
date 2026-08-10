@@ -5,7 +5,7 @@
 - Date: 2026-08-03 (Europe/Paris)
 - Revision: `9ca4f46c58cca343269cf25abf79c2f99fe74d55`
 - Profile: `full --no-cache`
-- Claim boundary: `functional_system_without_commercial_activation`
+- Claim boundary: `local_runtime_assurance_without_commercial_activation`
 - Result: 15 passed, 0 failed, 0 blocked, 0 deferred
 - Receipt window: 85.298 s from the first task start to the final summary
 - Cache context: assurance receipt reuse disabled; local shared Turborepo cache retained
@@ -69,9 +69,9 @@ POS behavior.
 - Date: 2026-08-03 (Europe/Paris)
 - Revision: `6289284bbfd632c79667bf03a586dd97e4a1e402`
 - Profile: `full`
-- Claim boundary: `functional_system_without_commercial_activation`
+- Claim boundary: `local_runtime_assurance_without_commercial_activation`
 - Command: `/usr/bin/time -p pnpm assurance:full`
-- Assurance workers: 4 (default; `BNS_ASSURANCE_WORKERS` unset)
+- Assurance workers: 4 (historical default; `BNS_ASSURANCE_WORKERS` unset)
 - Machine: Apple M4 Pro, arm64, 14 logical CPUs
 - OS: macOS 26.5.1
 - Node.js: v25.2.1
@@ -90,6 +90,16 @@ The second run used the same clean revision and working-tree identity. Every req
 The compatibility coverage consumer accepted the exact task identity, and `scripts/release-gate.sh --dry-run` selected the same 13-task `full` DAG with no deferred evidence.
 
 This benchmark establishes local feedback-loop behavior only. It does not claim commercial or production readiness, deployment readiness, live payment behavior, or physical POS behavior.
+
+### 2026-08-05 resource-bound default
+
+The historical four-worker default is superseded by a two-worker default after
+fresh full-profile runs reproduced `storefront-lint` process failures while
+coverage, Playwright and build work competed on the same local machine. The
+same lint input passed in isolation. Two workers retain DAG parallelism and the
+explicit `BNS_ASSURANCE_WORKERS` override while making the default local loop
+predictable. The full profile now also includes `assurance-contracts`, so the
+runner, identity, cache, worker and policy tests are part of the receipt claim.
 
 ## POS-only fast-loop budget
 
