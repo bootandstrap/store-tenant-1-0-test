@@ -35,19 +35,26 @@ test('fast never claims full functional assurance', () => {
   assert.equal(result.claimBoundary, 'changed_scope_feedback_only')
   assert.ok(result.deferred.includes('full-storefront-assurance'))
   assert.ok(result.deferred.includes('medusa-pos-postgres'))
-  assert.notEqual(result.claimBoundary, 'functional_system_without_commercial_activation')
+  assert.notEqual(result.claimBoundary, 'local_runtime_assurance_without_commercial_activation')
 })
 
-test('fast always selects policy and static security checks', () => {
+test('fast always selects runner contracts, policy and static security checks', () => {
   const result = resolveProfile(profiles, 'fast', [])
 
-  assert.deepEqual(result.tasks.slice(0, 5), [
+  assert.deepEqual(result.tasks.slice(0, 6), [
     'assurance-policy',
+    'assurance-contracts',
     'rls-policy',
     'audit-policy',
     'schema-ownership',
     'compose-security',
   ])
+})
+
+test('full assurance gates the runner that produces its receipts', () => {
+  const result = resolveProfile(profiles, 'full', [])
+
+  assert.ok(result.tasks.includes('assurance-contracts'))
 })
 
 test('critical POS changes select POS behavioral evidence', () => {
@@ -94,6 +101,15 @@ test('observability contract changes select sink and redaction evidence', () => 
   assert.ok(result.tasks.includes('storefront-typecheck'))
 })
 
+test('shared observability changes select the cross-plane behavioral gate', () => {
+  const result = resolveProfile(profiles, 'fast', [
+    'packages/shared/src/observability/evidence-event.ts',
+  ])
+
+  assert.ok(result.tasks.includes('shared-typecheck'))
+  assert.ok(result.tasks.includes('observability-unit'))
+})
+
 test('full profile provides every current release gate exactly once', () => {
   const result = resolveProfile(profiles, 'full', [])
   const capabilities = providedCapabilities(profiles, result.tasks)
@@ -104,13 +120,13 @@ test('full profile provides every current release gate exactly once', () => {
   assert.ok(result.tasks.includes('pos-conformance'))
   assert.ok(result.tasks.includes('pos-mutation-canary'))
   assert.ok(result.tasks.includes('medusa-pos-postgres'))
-  assert.equal(result.claimBoundary, 'functional_system_without_commercial_activation')
+  assert.equal(result.claimBoundary, 'local_runtime_assurance_without_commercial_activation')
 })
 
 test('profile claim boundaries match the assurance policy', () => {
   assert.deepEqual(policy.claimBoundaries, {
     fast: 'changed_scope_feedback_only',
-    full: 'functional_system_without_commercial_activation',
+    full: 'local_runtime_assurance_without_commercial_activation',
   })
 })
 
@@ -145,7 +161,7 @@ test('rejects overlapping selector rules with contradictory claims', () => {
     id: 'contradict-pos-claim',
     selector: { prefix: 'apps/storefront/src/lib/pos/' },
     tasks: ['pos-unit'],
-    claimBoundary: 'functional_system_without_commercial_activation',
+    claimBoundary: 'local_runtime_assurance_without_commercial_activation',
   })
 
   assert.throws(

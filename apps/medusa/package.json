@@ -17,12 +17,13 @@
     "seed": "medusa exec ./src/scripts/seed.ts",
     "start": "medusa start",
     "dev": "medusa develop",
-    "test:integration:http": "TEST_TYPE=integration:http NODE_OPTIONS=--experimental-vm-modules jest --silent=false --runInBand --forceExit",
-    "test:integration:modules": "TEST_TYPE=integration:modules NODE_OPTIONS=--experimental-vm-modules jest --silent=false --runInBand --forceExit",
-    "test:unit": "TEST_TYPE=unit NODE_OPTIONS=--experimental-vm-modules jest --silent --runInBand --forceExit",
+    "test:integration:http": "TEST_TYPE=integration:http NODE_OPTIONS=--experimental-vm-modules jest --silent=false --runInBand",
+    "test:integration:modules": "TEST_TYPE=integration:modules NODE_OPTIONS=--experimental-vm-modules jest --silent=false --runInBand",
+    "test:unit": "TEST_TYPE=unit NODE_OPTIONS=--experimental-vm-modules jest --silent --runInBand",
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
+    "@bootandstrap/shared": "workspace:*",
     "@medusajs/admin-sdk": "2.17.2",
     "@medusajs/admin-shared": "2.17.2",
     "@medusajs/cli": "2.17.2",
@@ -58,6 +59,8 @@
     "node": ">=20"
   },
   "overrides": {
+    "js-yaml": "3.15.1",
+    "nanoid": "3.3.17",
     "morgan": "1.11.0"
   },
   "packageManager": "npm@11.6.2"

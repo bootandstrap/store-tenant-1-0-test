@@ -46,6 +46,7 @@
       "claimBoundary": "changed_scope_feedback_only",
       "alwaysTasks": [
         "assurance-policy",
+        "assurance-contracts",
         "rls-policy",
         "audit-policy",
         "schema-ownership",
@@ -75,6 +76,11 @@
           "id": "shared-package",
           "selector": { "prefix": "packages/shared/" },
           "tasks": ["shared-typecheck"]
+        },
+        {
+          "id": "shared-observability-contract",
+          "selector": { "prefix": "packages/shared/src/observability/" },
+          "tasks": ["observability-unit"]
         },
         {
           "id": "platform-contract-package",
@@ -158,9 +164,10 @@
       ]
     },
     "full": {
-      "claimBoundary": "functional_system_without_commercial_activation",
+      "claimBoundary": "local_runtime_assurance_without_commercial_activation",
       "tasks": [
         "assurance-policy",
+        "assurance-contracts",
         "rls-policy",
         "audit-policy",
         "schema-ownership",
