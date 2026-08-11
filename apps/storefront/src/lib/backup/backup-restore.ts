@@ -72,8 +72,8 @@ const restoreBackupSchema = z.object({
         inventory: z.array(z.unknown()),
         governance: z.object({
             config: z.record(z.string(), z.unknown()),
-            feature_flags: z.record(z.string(), z.boolean()),
-            plan_limits: z.record(z.string(), z.number()),
+            feature_flags: z.record(z.string(), z.union([z.boolean(), z.null()])),
+            plan_limits: z.record(z.string(), z.union([z.number(), z.string(), z.null()])),
         }),
     }),
     stats: z.object({
