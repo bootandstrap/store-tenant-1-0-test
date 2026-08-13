@@ -4,6 +4,12 @@ import { dirname, resolve } from 'node:path'
 import test from 'node:test'
 import { fileURLToPath } from 'node:url'
 
+import {
+  buildBootstrapInstallCommands,
+  buildRuntimeProbeCommand,
+  validateBootstrapRuntime,
+} from './run-reproducible-bootstrap.mjs'
+
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 
 test('pins the reproducible Node 20.9 and pnpm 9.15 bootstrap contract', () => {
@@ -48,4 +54,23 @@ test('keeps the ESM shared observability boundary consumable from CommonJS Medus
   assert.match(medusaBoundary, /import type \{ EvidenceSink \}[\s\S]*"resolution-mode": "import"/)
   assert.match(medusaBoundary, /await import\("@bootandstrap\/shared\/observability"\)/)
   assert.doesNotMatch(medusaBoundary, /import \{[\s\S]*acceptCorrelationHeaders[\s\S]*\} from/)
+})
+
+test('defines cold and warm-offline frozen-lockfile bootstrap phases', () => {
+  assert.doesNotThrow(() => validateBootstrapRuntime('v20.9.0', '9.15.4'))
+  assert.throws(() => validateBootstrapRuntime('v20.10.0', '9.15.4'), /Node 20.9.0/)
+  const commands = buildBootstrapInstallCommands('/tmp/bns-bootstrap-store')
+
+  assert.deepEqual(commands.cold.slice(0, 2), ['install', '--frozen-lockfile'])
+  assert.ok(commands.cold.includes('/tmp/bns-bootstrap-store'))
+  assert.ok(commands.warmOffline.includes('--offline'))
+  assert.ok(commands.warmOffline.includes('--frozen-lockfile'))
+  assert.ok(commands.warmOffline.includes('/tmp/bns-bootstrap-store'))
+})
+
+test('keeps the post-offline-install runtime probe local and pnpm-compatible', () => {
+  const command = buildRuntimeProbeCommand()
+
+  assert.deepEqual(command, ['--filter=storefront', 'exec', 'next', '--version'])
+  assert.ok(!command.includes('--offline'))
 })
