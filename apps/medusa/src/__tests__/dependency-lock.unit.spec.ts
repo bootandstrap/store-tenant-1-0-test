@@ -120,6 +120,9 @@ describe("Medusa dependency lock contract", () => {
         expect(dockerignore).toContain("node_modules")
         expect(dockerignore).toContain("**/.env*")
         expect(dockerignore).toContain("\n.artifacts\n")
+        expect(dockerignore).not.toMatch(/^apps\/storefront\/?$/m)
+        expect(dockerignore).not.toMatch(/^packages\/platform-contract\/?$/m)
+        expect(dockerignore).not.toMatch(/^packages\/tenant-context\/?$/m)
         expect(dockerfile).not.toContain("RUN npm install")
         expect(dockerfile).not.toContain("RUN npm ci")
         expect(entrypoint).toContain("set -eu")
@@ -128,6 +131,17 @@ describe("Medusa dependency lock contract", () => {
         expect(entrypoint).not.toContain("sleep ")
         expect(entrypoint).not.toContain("|| true")
         expect(entrypoint).not.toMatch(/echo .*MEDUSA_ADMIN_EMAIL/)
+    })
+
+    it("runs the storefront image gate when the root Docker context changes", () => {
+        const appRoot = resolveAppRoot()
+        const repoRoot = resolve(appRoot, "../..")
+        const workflow = readFileSync(
+            resolve(repoRoot, ".github/workflows/docker-publish.yml"),
+            "utf8"
+        )
+
+        expect(workflow).toMatch(/^\s+- ['"]?\.dockerignore['"]?\s*$/m)
     })
 
     it("fails closed at migration and admin boundaries without fixed-delay retries", () => {
