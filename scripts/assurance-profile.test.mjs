@@ -55,6 +55,10 @@ test('full assurance gates the runner that produces its receipts', () => {
   const result = resolveProfile(profiles, 'full', [])
 
   assert.ok(result.tasks.includes('assurance-contracts'))
+  assert.ok(result.tasks.includes('reproducible-bootstrap'))
+  assert.ok(
+    result.tasks.indexOf('reproducible-bootstrap') > result.tasks.indexOf('assurance-contracts'),
+  )
 })
 
 test('critical POS changes select POS behavioral evidence', () => {
@@ -119,6 +123,7 @@ test('full profile provides every current release gate exactly once', () => {
   assert.ok(CURRENT_RELEASE_GATES.every((gate) => capabilities.includes(gate)))
   assert.ok(result.tasks.includes('pos-conformance'))
   assert.ok(result.tasks.includes('pos-mutation-canary'))
+  assert.ok(result.tasks.includes('medusa-typecheck'))
   assert.ok(result.tasks.includes('medusa-pos-postgres'))
   assert.equal(result.claimBoundary, 'local_runtime_assurance_without_commercial_activation')
 })

@@ -11,6 +11,7 @@ const context = {
   trace_id: '0123456789abcdef0123456789abcdef',
   request_id: 'request-cross-plane-proof',
   tenant_id: 'tenant-cross-plane-proof',
+  principal_id: 'principal-cross-plane-proof',
   operation_id: 'operation-cross-plane-proof',
 }
 
@@ -36,6 +37,8 @@ test('writes a queryable, ordered and redacted storefront to Medusa receipt', as
     ])
     assert.deepEqual(receipt.query, {
       trace_id: context.trace_id,
+      tenant_id: context.tenant_id,
+      principal_id: context.principal_id,
       operation_id: context.operation_id,
       event_ids: receipt.events.map((event) => event.event_id),
     })
@@ -59,6 +62,24 @@ test('fails closed on tenant mismatch before writing a receipt', async () => {
       outputPath,
       startedAt: '2026-08-06T20:00:00.000Z',
     }), /tenant_mismatch/)
+    assert.throws(() => readFileSync(outputPath), /ENOENT/)
+  } finally {
+    rmSync(directory, { recursive: true, force: true })
+  }
+})
+
+test('fails closed on principal mismatch before writing a receipt', async () => {
+  const directory = mkdtempSync(join(tmpdir(), 'bns-observability-proof-'))
+  const outputPath = join(directory, 'runtime.json')
+
+  try {
+    await assert.rejects(generateRuntimeEvidence({
+      context: { ...context, principal_id: 'principal-other' },
+      authorityPrincipalId: context.principal_id,
+      revision,
+      outputPath,
+      startedAt: '2026-08-06T20:00:00.000Z',
+    }), /principal_mismatch/)
     assert.throws(() => readFileSync(outputPath), /ENOENT/)
   } finally {
     rmSync(directory, { recursive: true, force: true })
